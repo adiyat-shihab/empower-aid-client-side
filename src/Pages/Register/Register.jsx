@@ -9,38 +9,43 @@ import squareLoading from "../../../public/azNASDnnUY.json";
 
 export const Register = () => {
   const navigation = useNavigate();
-  const { CreateUser } = useContext(authContext);
+  const { CreateUser, updateProfiles } = useContext(authContext);
   const [loading, setLoading] = useState(false);
   const [passValidation, setPassValidation] = useState("");
   const [validation, setValidation] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoading(true);
 
     const target = e.target;
-    const firstName = target.firstname.value;
-    const lastName = target.lastname.value;
+    const name = target.name.value;
+    const photo = target.image.value;
     const email = target.email.value;
     const password = target.password.value;
-    console.log(firstName, lastName, email, password);
     setPassValidation("");
     setValidation("");
     if (password.length < 6) {
+      setLoading(false);
       setPassValidation("Password must be 6 character");
     } else if (password.length > 15) {
+      setLoading(false);
       setPassValidation("Password is not exceed over 15 character");
     } else if (!/[A-Z]/.test(password)) {
+      setLoading(false);
       setPassValidation("Password must need atleast one Capital Letter");
     } else if (!/\d/.test(password)) {
+      setLoading(false);
       setPassValidation("Password must need atleast one number");
     } else if (!/[@$!%*?&]/.test(password)) {
+      setLoading(false);
       setPassValidation("Password must need atleast one special character");
     } else {
-      CreateUser(email, password)
-        .then((res) => {
+      await CreateUser(email, password)
+        .then(async (res) => {
+          await updateProfiles(name, photo);
           setLoading(false);
-          Swal.fire("Register Success", "", "success");
+          await Swal.fire("Register Success", "", "success");
           navigation("/");
         })
         .catch((err) => {
@@ -67,9 +72,7 @@ export const Register = () => {
               <form onSubmit={handleSubmit}>
                 <div className="flex -mx-3">
                   <div className="w-1/2 px-3 mb-5">
-                    <label className="text-xs font-semibold px-1">
-                      First name
-                    </label>
+                    <label className="text-xs font-semibold px-1">Name</label>
                     <div className="flex">
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
@@ -77,14 +80,14 @@ export const Register = () => {
                       <input
                         type="text"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                        placeholder="John"
-                        name="firstname"
+                        placeholder="Adiyat Shihab"
+                        name="name"
                       />
                     </div>
                   </div>
                   <div className="w-1/2 px-3 mb-5">
                     <label className="text-xs font-semibold px-1">
-                      Last name
+                      Photo Url
                     </label>
                     <div className="flex">
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
@@ -93,8 +96,8 @@ export const Register = () => {
                       <input
                         type="text"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                        placeholder="Smith"
-                        name="lastname"
+                        placeholder="URl"
+                        name="image"
                       />
                     </div>
                   </div>

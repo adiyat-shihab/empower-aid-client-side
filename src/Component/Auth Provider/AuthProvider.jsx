@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -22,6 +23,12 @@ export const AuthProvider = ({ children }) => {
     return signOut(auth).then((res) =>
       Swal.fire("Sign Out Successful", "", "success"),
     );
+  };
+  const updateProfiles = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: `${photo}`,
+    });
   };
 
   useEffect(() => {
@@ -58,6 +65,7 @@ export const AuthProvider = ({ children }) => {
         SignOut,
         SignIn,
         userDetails,
+        updateProfiles,
       }}
     >
       {children}

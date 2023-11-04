@@ -10,7 +10,9 @@ export const NavLinkBar = ({ data, url }) => {
           borderBottom: isActive && " 2px solid #3BCF93",
         };
       }}
-      className={" text-[1.125rem] font-bold  hover:text-[#3BCF93]"}
+      className={
+        " text-[1.125rem] font-bold transition ease-in-out duration-300"
+      }
     >
       {data}
     </NavLink>

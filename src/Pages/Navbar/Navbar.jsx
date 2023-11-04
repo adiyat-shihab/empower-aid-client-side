@@ -1,8 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import { NavLinkBar } from "./NavLinkBar.jsx";
+import { useContext } from "react";
+import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 
 export const Navbar = () => {
-  const userDetails = false;
+  const { userDetails, SignOut } = useContext(authContext);
+
   return (
     <>
       <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 xl:px-[8.75rem] lg:py-4">
@@ -14,7 +17,7 @@ export const Navbar = () => {
               alt={"logo "}
             />
           </Link>
-          <p className="uppercase font-bold ml-2 tracking-[3px] text-xs md:text-base hidden md:flex">
+          <p className="uppercase cursor-default font-bold ml-2 tracking-[3px] text-xs md:text-base hidden md:flex">
             Empower Aid
           </p>
           <ul className="ml-auto mr-8 hidden items-center gap-[3.06rem] lg:flex">
@@ -22,20 +25,20 @@ export const Navbar = () => {
               <NavLinkBar data={"Home"} url={"/"} />
             </li>
             <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
-              <NavLinkBar data={"Available Foods"} />
+              <NavLinkBar url={"/available/food"} data={"Available Foods"} />
             </li>{" "}
             <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
-              <NavLinkBar data={"Add Food"} />
+              <NavLinkBar url={"/add/food"} data={"Add Food"} />
             </li>
             <li>
-              <NavLinkBar data={"Manage Food"} />
+              <NavLinkBar url={"/manage/food"} data={"Manage Food"} />
             </li>
             {userDetails ? (
               <button
                 onClick={SignOut}
-                className="block text-[1.125rem] p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
+                className="block bg-[#3BCF93] px-6 rounded-sm text-white  py-2 text-[1.125rem] p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
               >
-                <span className={"text-[1.125rem]"}>Logout</span>
+                <span className={" text-[1rem] font-bold  "}>Logout</span>
               </button>
             ) : (
               <NavLink

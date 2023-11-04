@@ -7,7 +7,7 @@ export const FooterLogo = () => {
   };
   return (
     <>
-      <div className="bg-gray-100 pt-2">
+      <div className="bg-[#222222] pt-2">
         <div
           className="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col
       max-w-screen-lg items-center"
@@ -156,7 +156,9 @@ export const FooterLogo = () => {
               </svg>
             </a>
           </div>
-          <div className="my-5">© Copyright 2020. All Rights Reserved.</div>
+          <div className="my-5 text-white">
+            © Copyright 2020. All Rights Reserved.
+          </div>
         </div>
       </div>
     </>

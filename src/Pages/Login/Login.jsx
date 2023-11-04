@@ -20,9 +20,9 @@ export const Login = () => {
     e.preventDefault();
     const target = e.target;
     await SignIn(target.email.value, target.password.value)
-      .then(() => {
+      .then(async () => {
         setLoading(false);
-        Swal.fire("Login Success", "", "success");
+        await Swal.fire("Login Success", "", "success");
         navigation("/");
       })
       .catch((err) => {
@@ -34,7 +34,7 @@ export const Login = () => {
   return (
     <>
       {" "}
-      <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center px-5 py-5 relative ">
+      <div className="min-w-screen md:py-[190px]  bg-gray-100 flex items-center justify-center px-5 py-5 relative ">
         <div
           className="bg-gray-100 text-gray-500 animate__animated animate__fadeIn rounded-3xl shadow-xl w-full overflow-hidden"
           style={{ maxWidth: "1000px" }}
