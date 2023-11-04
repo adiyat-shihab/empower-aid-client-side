@@ -1,18 +1,53 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 
 import { DesignRegister } from "./DesignRegister.jsx";
+import Swal from "sweetalert2";
+import Lottie from "lottie-react";
+import squareLoading from "../../../public/azNASDnnUY.json";
 
 export const Register = () => {
   const navigation = useNavigate();
   const { CreateUser } = useContext(authContext);
+  const [loading, setLoading] = useState(false);
+  const [passValidation, setPassValidation] = useState("");
+  const [validation, setValidation] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
     const target = e.target;
-    CreateUser(target.email.value, target.password.value)
-      .then((res) => navigation("/"))
-      .catch((err) => console.log(err));
+    const firstName = target.firstname.value;
+    const lastName = target.lastname.value;
+    const email = target.email.value;
+    const password = target.password.value;
+    console.log(firstName, lastName, email, password);
+    setPassValidation("");
+    setValidation("");
+    if (password.length < 6) {
+      setPassValidation("Password must be 6 character");
+    } else if (password.length > 15) {
+      setPassValidation("Password is not exceed over 15 character");
+    } else if (!/[A-Z]/.test(password)) {
+      setPassValidation("Password must need atleast one Capital Letter");
+    } else if (!/\d/.test(password)) {
+      setPassValidation("Password must need atleast one number");
+    } else if (!/[@$!%*?&]/.test(password)) {
+      setPassValidation("Password must need atleast one special character");
+    } else {
+      CreateUser(email, password)
+        .then((res) => {
+          setLoading(false);
+          Swal.fire("Register Success", "", "success");
+          navigation("/");
+        })
+        .catch((err) => {
+          setLoading(false);
+          setValidation("Email Already in Use");
+        });
+    }
   };
 
   return (
@@ -43,7 +78,7 @@ export const Register = () => {
                         type="text"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="John"
-                        name="first name"
+                        name="firstname"
                       />
                     </div>
                   </div>
@@ -59,7 +94,7 @@ export const Register = () => {
                         type="text"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="Smith"
-                        name="last name"
+                        name="lastname"
                       />
                     </div>
                   </div>
@@ -98,6 +133,9 @@ export const Register = () => {
                         required
                       />
                     </div>
+                    <strong className={"text-red-400"}>
+                      {passValidation || validation}
+                    </strong>
                   </div>
                 </div>
                 <div className="flex -mx-3">
@@ -129,6 +167,19 @@ export const Register = () => {
             </div>
           </div>
         </div>
+        {loading && (
+          <div
+            className={
+              "absolute top-0 opacity-50 w-full h-full bg-[#EAEAED] justify-center flex items-center  bg-blend-multiply"
+            }
+          >
+            <Lottie
+              animationData={squareLoading}
+              loop={true}
+              className={"h-32 "}
+            />
+          </div>
+        )}
       </div>
     </>
   );
