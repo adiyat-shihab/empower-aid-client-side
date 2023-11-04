@@ -1,7 +1,8 @@
-import { DesignLogin } from "../Login/DesignLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
+
+import { DesignRegister } from "./DesignRegister.jsx";
 
 export const Register = () => {
   const navigation = useNavigate();
@@ -21,11 +22,11 @@ export const Register = () => {
           style={{ maxWidth: "1000px" }}
         >
           <div className="md:flex w-full">
-            <DesignLogin />
+            <DesignRegister />
             <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
               <div className="text-center mb-10">
                 <h1 className="font-bold text-3xl text-gray-900">REGISTER</h1>
-                <p>Enter your information to register</p>
+                <p>Enter your information to Register</p>
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="flex -mx-3">

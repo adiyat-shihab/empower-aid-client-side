@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { NavLinkBar } from "./NavLinkBar.jsx";
 
 export const Navbar = () => {
   const userDetails = false;
@@ -16,46 +17,16 @@ export const Navbar = () => {
           <p className="uppercase font-bold ml-2 tracking-[3px]	">Empower Aid</p>
           <ul className="ml-auto mr-8 hidden items-center gap-[3.06rem] lg:flex">
             <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
-              <NavLink
-                to="/"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? "#3BCF93" : "#afafaf",
-                    borderBottom: isActive ? " 2px solid #3BCF93" : "",
-                  };
-                }}
-                className={" text-[1.125rem] font-bold"}
-              >
-                Home
-              </NavLink>
+              <NavLinkBar data={"Home"} url={"/"} />
             </li>
             <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
-              <NavLink
-                to="/donation"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? "#3BCF93" : "#afafaf",
-                    borderBottom: isActive ? " 2px solid #3BCF93" : "",
-                  };
-                }}
-                className={" text-[1.125rem] font-bold"}
-              >
-                Donation
-              </NavLink>
+              <NavLinkBar data={"Available Foods"} />
             </li>{" "}
             <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
-              <NavLink
-                to="/statistics"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? "#3BCF93" : "#afafaf",
-                    borderBottom: isActive ? " 2px solid #3BCF93" : "",
-                  };
-                }}
-                className={" text-[1.125rem] font-bold"}
-              >
-                Statistics
-              </NavLink>
+              <NavLinkBar data={"Add Food"} />
+            </li>
+            <li>
+              <NavLinkBar data={"Manage Food"} />
             </li>
             {userDetails ? (
               <button
