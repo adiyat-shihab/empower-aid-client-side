@@ -6,10 +6,11 @@ import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 export const Navbar = () => {
   const { userDetails, SignOut } = useContext(authContext);
 
+  console.log(userDetails);
   return (
     <>
-      <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 xl:px-[8.75rem] lg:py-4">
-        <div className="flex items-center px-6 md:px-14 lg:px-32 text-gray-900">
+      <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200  lg:py-4">
+        <div className="flex items-center px-6 md:px-14 lg:px-14 text-gray-900">
           <Link to={"/"}>
             <img
               src="https://i.ibb.co/c6j3YWs/White-Green-Simple-Illustrative-Food-Logo-1.png"
@@ -33,6 +34,22 @@ export const Navbar = () => {
             <li>
               <NavLinkBar url={"/manage/food"} data={"Manage Food"} />
             </li>
+            {userDetails && (
+              <li
+                className={
+                  "flex justify-center px-6 py-2 rounded-[25px] gap-4 items-center bg-[#3BCF93]"
+                }
+              >
+                <p className={"font-bold text-white "}>
+                  {userDetails?.displayName}
+                </p>
+                <img
+                  src={userDetails?.photoURL}
+                  className={"w-8 h-8 rounded-full"}
+                  alt=""
+                />
+              </li>
+            )}
             {userDetails ? (
               <button
                 onClick={SignOut}

@@ -3,7 +3,7 @@ import { FooterLogo } from "./FooterLogo.jsx";
 export const Footer = () => {
   return (
     <>
-      <div className="bg-[#222222] border-t-2">
+      <div className="bg-[#222222] ">
         <div className="max-w-screen-lg px-4 sm:px-6 text-gray-800 sm:grid md:grid-cols-4 sm:grid-cols-2 mx-auto">
           <div className="p-5">
             <h3 className="font-bold text-xl text-white">Company Name</h3>

@@ -6,13 +6,19 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import Swal from "sweetalert2";
 import axios from "axios";
 export const authContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
+  const provider = new GoogleAuthProvider();
 
+  const googleSign = () => {
+    return signInWithPopup(auth, provider);
+  };
   const CreateUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -66,6 +72,7 @@ export const AuthProvider = ({ children }) => {
         SignIn,
         userDetails,
         updateProfiles,
+        googleSign,
       }}
     >
       {children}

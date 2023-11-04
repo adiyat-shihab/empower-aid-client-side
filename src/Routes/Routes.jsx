@@ -5,6 +5,7 @@ import { Register } from "../Pages/Register/Register.jsx";
 import { AvailableFood } from "../Pages/Available food/AvailableFood.jsx";
 import { AddFood } from "../Pages/Add Food/AddFood.jsx";
 import { ManageFood } from "../Pages/Manage Food/ManageFood.jsx";
+import { Home } from "../Pages/Home/Home.jsx";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -12,6 +13,10 @@ export const Routes = () => {
       path: "/",
       element: <App />,
       children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
         {
           path: "/login",
           element: <Login />,
