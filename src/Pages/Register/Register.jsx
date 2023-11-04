@@ -14,9 +14,10 @@ export const Register = () => {
       .then((res) => navigation("/"))
       .catch((err) => console.log(err));
   };
+
   return (
     <>
-      <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center px-5 py-5">
+      <div className="min-w-screen md:py-[190px] bg-gray-100 flex items-center justify-center px-5 py-10">
         <div
           className="bg-gray-100 text-gray-500 rounded-3xl animate__animated animate__fadeIn animate__d shadow-xl w-full overflow-hidden"
           style={{ maxWidth: "1000px" }}
@@ -103,8 +104,8 @@ export const Register = () => {
                   <div className="w-full px-3 mb-5">
                     <input
                       type="submit"
-                      className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700
-                       cursor-pointer text-white rounded-lg px-3 py-3 font-semibold"
+                      className="block transition ease-in-out duration-200   mx-auto bg-[#3BCF93] hover:bg-[#388A69]
+                        cursor-pointer w-full text-[16px] tracking-[2px] text-white rounded-lg px-3 py-3 font-semibold"
                       placeholder="Register"
                       value="Register"
                     />
@@ -112,7 +113,12 @@ export const Register = () => {
                     <div className={"pt-4"}>
                       <strong>
                         Existing user?{" "}
-                        <Link to={"/login"} className={"text-blue-400"}>
+                        <Link
+                          to={"/login"}
+                          className={
+                            "text-[#3BCF93] hover:text-[#388A69] transition ease-in-out duration-75"
+                          }
+                        >
                           Login
                         </Link>
                       </strong>

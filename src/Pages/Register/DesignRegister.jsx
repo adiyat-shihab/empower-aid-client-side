@@ -1,7 +1,7 @@
 export const DesignRegister = () => {
   return (
     <>
-      <div className="hidden md:block w-1/2 bg-[#3BCF93] py-10 px-10 animate__animated animate__fadeIn">
+      <div className="hidden  md:flex justify-center items-center w-1/2 bg-[#3BCF93] py-10 px-10 animate__animated animate__fadeIn">
         {" "}
         <svg
           id="SvgjsSvg1090"
@@ -93,7 +93,7 @@ export const DesignRegister = () => {
                 className="color77536f svgShape"
               ></path>
               <path
-                fill="#3bcf93"
+                fill="#308e68"
                 fillRule="evenodd"
                 d="M586.834 506.112a9.339 9.339 0 0 0-6.261-4.24 9.661 9.661 0 0 0-7.3 1.547L170.739 793.17a9.537 9.537 0 0 0-2.419 12.874l470.669 740.885a9.108 9.108 0 0 0 6.2 4.149 9.237 9.237 0 0 0 7.305-1.547l402.529-289.751a9.439 9.439 0 0 0 2.477-12.78Z"
                 className="colora9a5c6 svgShape"

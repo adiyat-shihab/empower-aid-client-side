@@ -1,27 +1,40 @@
 import { DesignLogin } from "./DesignLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import "animate.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import Swal from "sweetalert2";
+import Lottie from "lottie-react";
+import squareLoading from "../../../public/azNASDnnUY.json";
 
 export const Login = () => {
   const { SignIn } = useContext(authContext);
   const navigation = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  console.log(loading);
+
   const handleSubmit = async (e) => {
+    setError(false);
+    setLoading(true);
     e.preventDefault();
     const target = e.target;
     await SignIn(target.email.value, target.password.value)
       .then(() => {
+        setLoading(false);
         Swal.fire("Login Success", "", "success");
         navigation("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        setError(true);
+      });
   };
+
   return (
     <>
       {" "}
-      <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center px-5 py-5">
+      <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center px-5 py-5 relative ">
         <div
           className="bg-gray-100 text-gray-500 animate__animated animate__fadeIn rounded-3xl shadow-xl w-full overflow-hidden"
           style={{ maxWidth: "1000px" }}
@@ -63,11 +76,16 @@ export const Login = () => {
                       </div>
                       <input
                         type="password"
-                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mb-4"
                         placeholder="************"
                         name="password"
                       />
                     </div>
+                    {error && (
+                      <strong className={"text-red-400 "}>
+                        Email and Password Doesn't match
+                      </strong>
+                    )}
                   </div>
                 </div>
                 <div className="flex -mx-3">
@@ -98,6 +116,20 @@ export const Login = () => {
             </div>
           </div>
         </div>
+
+        {loading && (
+          <div
+            className={
+              "absolute top-0 opacity-50 w-full h-full bg-[#EAEAED] justify-center flex items-center  bg-blend-multiply"
+            }
+          >
+            <Lottie
+              animationData={squareLoading}
+              loop={true}
+              className={"h-32 "}
+            />
+          </div>
+        )}
       </div>
     </>
   );

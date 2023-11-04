@@ -6,15 +6,17 @@ export const Navbar = () => {
   return (
     <>
       <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 xl:px-[8.75rem] lg:py-4">
-        <div className="flex items-center px-32 text-gray-900">
+        <div className="flex items-center px-6 md:px-14 lg:px-32 text-gray-900">
           <Link to={"/"}>
             <img
               src="https://i.ibb.co/c6j3YWs/White-Green-Simple-Illustrative-Food-Logo-1.png"
-              className={"h-[2rem] w-[65px] rounded-lg md:h-[3rem] lg:h-auto"}
+              className={" md:w-[65px] w-[50px] rounded-lg  lg:h-auto"}
               alt={"logo "}
             />
           </Link>
-          <p className="uppercase font-bold ml-2 tracking-[3px]	">Empower Aid</p>
+          <p className="uppercase font-bold ml-2 tracking-[3px] text-xs md:text-base hidden md:flex">
+            Empower Aid
+          </p>
           <ul className="ml-auto mr-8 hidden items-center gap-[3.06rem] lg:flex">
             <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
               <NavLinkBar data={"Home"} url={"/"} />
@@ -38,7 +40,7 @@ export const Navbar = () => {
             ) : (
               <NavLink
                 className="block bg-[#3BCF93] px-4 rounded-sm text-white  py-2 text-[1.125rem] p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
-                to={"/login"}
+                to={"/register"}
               >
                 <span className={"text-[1.125rem] font-bold"}>Get Start</span>
               </NavLink>

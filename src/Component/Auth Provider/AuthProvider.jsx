@@ -11,6 +11,7 @@ import axios from "axios";
 export const authContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
+
   const CreateUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -22,27 +23,28 @@ export const AuthProvider = ({ children }) => {
       Swal.fire("Sign Out Successful", "", "success"),
     );
   };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       const user = currentUser?.email || userDetails?.email;
       const loggedUser = { email: user };
       setUserDetails(currentUser);
       console.log(user);
-      if (currentUser) {
-        axios
-          .post("https://course-roter-backend.vercel.app/jwt", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
-      } else {
-        axios
-          .post("https://course-roter-backend.vercel.app/clear", loggedUser, {
-            withCredentials: true,
-          })
-          .then((r) => console.log(r))
-          .catch((err) => console.log(err));
-      }
+      // if (currentUser) {
+      //   axios
+      //     .post("https://course-roter-backend.vercel.app/jwt", loggedUser, {
+      //       withCredentials: true,
+      //     })
+      //     .then((res) => console.log(res.data))
+      //     .catch((err) => console.log(err));
+      // } else {
+      //   axios
+      //     .post("https://course-roter-backend.vercel.app/clear", loggedUser, {
+      //       withCredentials: true,
+      //     })
+      //     .then((r) => console.log(r))
+      //     .catch((err) => console.log(err));
+      // }
     });
     return () => {
       return unsubscribe();
@@ -50,7 +52,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <authContext.Provider value={{ CreateUser, SignOut, SignIn, userDetails }}>
+    <authContext.Provider
+      value={{
+        CreateUser,
+        SignOut,
+        SignIn,
+        userDetails,
+      }}
+    >
       {children}
     </authContext.Provider>
   );
