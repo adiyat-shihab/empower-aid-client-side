@@ -7,6 +7,8 @@ import { AddFood } from "../Pages/Add Food/AddFood.jsx";
 import { ManageFood } from "../Pages/Manage Food/ManageFood.jsx";
 import { Home } from "../Pages/Home/Home.jsx";
 import { AvailableSingleFood } from "../Pages/Available food/AvailableSingleFood.jsx";
+import { PrivateRoute } from "../Component/Private Route/PrivateRoute.jsx";
+import { PrivateLoginRoute } from "../Component/Private Route/PrivateLoginRoute.jsx";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -20,11 +22,19 @@ export const Routes = () => {
         },
         {
           path: "/login",
-          element: <Login />,
+          element: (
+            <PrivateLoginRoute>
+              <Login />
+            </PrivateLoginRoute>
+          ),
         },
         {
           path: "/register",
-          element: <Register />,
+          element: (
+            <PrivateLoginRoute>
+              <Register />
+            </PrivateLoginRoute>
+          ),
         },
         {
           path: "/available/food",
@@ -32,15 +42,30 @@ export const Routes = () => {
         },
         {
           path: "/add/food",
-          element: <AddFood />,
+          element: (
+            <PrivateRoute>
+              {" "}
+              <AddFood />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/manage/food",
-          element: <ManageFood />,
+          element: (
+            <PrivateRoute>
+              {" "}
+              <ManageFood />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/donation/food/:id",
-          element: <AvailableSingleFood />,
+          element: (
+            <PrivateRoute>
+              {" "}
+              <AvailableSingleFood />
+            </PrivateRoute>
+          ),
         },
       ],
     },

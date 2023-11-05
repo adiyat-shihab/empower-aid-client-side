@@ -14,15 +14,18 @@ import axios from "axios";
 export const authContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
   const provider = new GoogleAuthProvider();
 
   const googleSign = () => {
     return signInWithPopup(auth, provider);
   };
   const CreateUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const SignIn = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   const SignOut = () => {
@@ -42,6 +45,7 @@ export const AuthProvider = ({ children }) => {
       const user = currentUser?.email || userDetails?.email;
       const loggedUser = { email: user };
       setUserDetails(currentUser);
+      setLoading(false);
 
       // if (currentUser) {
       //   axios
@@ -73,6 +77,7 @@ export const AuthProvider = ({ children }) => {
         userDetails,
         updateProfiles,
         googleSign,
+        loading,
       }}
     >
       {children}
