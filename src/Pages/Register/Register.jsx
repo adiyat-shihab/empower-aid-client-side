@@ -6,6 +6,7 @@ import { DesignRegister } from "./DesignRegister.jsx";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
 import squareLoading from "../../assets/azNASDnnUY.json";
+import axios from "axios";
 
 export const Register = () => {
   const navigation = useNavigate();
@@ -44,6 +45,7 @@ export const Register = () => {
       await CreateUser(email, password)
         .then(async (res) => {
           await updateProfiles(name, photo);
+          await axios.post("http://localhost:3000/addUser", { email, name });
           setLoading(false);
           await Swal.fire("Register Success", "", "success");
           navigation("/");
@@ -54,11 +56,27 @@ export const Register = () => {
         });
     }
   };
+  const [exist, setExist] = useState(null);
 
   const handleGoogle = async () => {
     setLoading(true);
     await googleSign()
-      .then(async () => {
+      .then(async (res) => {
+        const { email, displayName } = res.user;
+        const name = displayName;
+        const user = { email, name };
+        setExist(null);
+        await axios
+          .get(`http://localhost:3000/user/${email}`)
+          .then((res) => {
+            console.log(res.data.email);
+            setExist(res.data.email);
+          })
+          .catch((err) => console.log(err));
+        if (!exist) {
+          await axios.post("http://localhost:3000/addUser", user);
+        }
+
         setLoading(false);
         await Swal.fire("Register Success", "", "success");
         navigation("/");

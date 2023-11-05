@@ -12,7 +12,6 @@ export const Login = () => {
   const navigation = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  console.log(loading);
 
   const handleSubmit = async (e) => {
     setError(false);

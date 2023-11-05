@@ -6,7 +6,6 @@ import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 export const Navbar = () => {
   const { userDetails, SignOut } = useContext(authContext);
 
-  console.log(userDetails);
   return (
     <>
       <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white  py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200  lg:py-4">

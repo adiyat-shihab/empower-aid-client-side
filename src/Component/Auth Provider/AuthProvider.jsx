@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       const user = currentUser?.email || userDetails?.email;
       const loggedUser = { email: user };
       setUserDetails(currentUser);
-      console.log(user);
+
       // if (currentUser) {
       //   axios
       //     .post("https://course-roter-backend.vercel.app/jwt", loggedUser, {
