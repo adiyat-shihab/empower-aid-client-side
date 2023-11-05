@@ -8,7 +8,7 @@ import { ManageFood } from "../Pages/Manage Food/ManageFood.jsx";
 import { Home } from "../Pages/Home/Home.jsx";
 import { AvailableSingleFood } from "../Pages/Available food/AvailableSingleFood.jsx";
 import { PrivateRoute } from "../Component/Private Route/PrivateRoute.jsx";
-import { PrivateLoginRoute } from "../Component/Private Route/PrivateLoginRoute.jsx";
+import { Helmet } from "react-helmet";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -18,23 +18,15 @@ export const Routes = () => {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <Home></Home>,
         },
         {
           path: "/login",
-          element: (
-            <PrivateLoginRoute>
-              <Login />
-            </PrivateLoginRoute>
-          ),
+          element: <Login></Login>,
         },
         {
           path: "/register",
-          element: (
-            <PrivateLoginRoute>
-              <Register />
-            </PrivateLoginRoute>
-          ),
+          element: <Register></Register>,
         },
         {
           path: "/available/food",
@@ -44,7 +36,6 @@ export const Routes = () => {
           path: "/add/food",
           element: (
             <PrivateRoute>
-              {" "}
               <AddFood />
             </PrivateRoute>
           ),
@@ -53,7 +44,6 @@ export const Routes = () => {
           path: "/manage/food",
           element: (
             <PrivateRoute>
-              {" "}
               <ManageFood />
             </PrivateRoute>
           ),
@@ -62,7 +52,6 @@ export const Routes = () => {
           path: "/donation/food/:id",
           element: (
             <PrivateRoute>
-              {" "}
               <AvailableSingleFood />
             </PrivateRoute>
           ),

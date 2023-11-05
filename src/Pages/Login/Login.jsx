@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Lottie from "lottie-react";
 import squareLoading from "../../assets/azNASDnnUY.json";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 export const Login = () => {
   const { SignIn, googleSign } = useContext(authContext);
@@ -64,6 +65,9 @@ export const Login = () => {
   return (
     <>
       {" "}
+      <Helmet>
+        <title>Empower Hive | Login</title>
+      </Helmet>
       <div className="min-w-screen md:py-[190px]  bg-gray-100 flex items-center justify-center px-5 py-5 relative ">
         <div
           className="bg-gray-100 text-gray-500 animate__animated animate__fadeIn rounded-3xl shadow-xl w-full overflow-hidden"

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Lottie from "lottie-react";
 import squareLoading from "../../assets/azNASDnnUY.json";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 export const Register = () => {
   const navigation = useNavigate();
@@ -61,28 +62,28 @@ export const Register = () => {
   };
   const [exist, setExist] = useState(true);
 
-  const handleGoogle = async () => {
+  const handleGoogle = () => {
     setLoading(true);
-    await googleSign()
+    googleSign()
       .then(async (res) => {
         const { email, displayName } = res.user;
         const name = displayName;
         const user = { email, name };
 
         await axios
-          .get(`${import.meta.env.VITE_LOCAL_HOST}/user/${email}`)
-          .then((res) => {
-            console.log(res.data.email);
-            setExist(res.data.email);
+          .get(`http://localhost:3000/user/${email}`)
+          .then((resp) => {
+            console.log(resp.data.email);
+            setExist(resp.data.email);
           })
           .catch((err) => console.log(err));
         if (exist !== true) {
-          await axios.post(`${import.meta.env.VITE_LOCAL_HOST}/addUser`, user);
+          await axios.post(`http://localhost:3000/addUser`, user);
         }
 
         setLoading(false);
         await Swal.fire("Register Success", "", "success");
-        navigation("/");
+        await navigation("/");
       })
       .catch((err) => {
         setLoading(false);
@@ -91,6 +92,9 @@ export const Register = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Empower Hive | Register</title>
+      </Helmet>
       <div className="min-w-screen md:py-[190px] bg-gray-100 flex items-center justify-center px-5 py-10">
         <div
           className="bg-gray-100 text-gray-500 rounded-3xl animate__animated animate__fadeIn animate__d shadow-xl w-full overflow-hidden"

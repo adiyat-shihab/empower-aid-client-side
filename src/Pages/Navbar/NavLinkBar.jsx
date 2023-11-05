@@ -11,10 +11,16 @@ export const NavLinkBar = ({ data, url }) => {
         };
       }}
       className={
-        " text-[1.125rem] font-bold transition ease-in-out duration-300"
+        " text-[1.125rem] hover:text-[#3BCF93] font-bold transition ease-in-out duration-300"
       }
     >
-      {data}
+      <span
+        className={
+          "hover:text-[#3BCF93] hover:border-b hover:border-b-[#3BCF93]"
+        }
+      >
+        {data}
+      </span>
     </NavLink>
   );
 };

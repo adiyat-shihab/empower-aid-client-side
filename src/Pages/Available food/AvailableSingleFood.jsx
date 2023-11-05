@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, Modal } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
+import { Helmet } from "react-helmet";
 
 export const AvailableSingleFood = () => {
   const { userDetails } = useContext(authContext);
@@ -43,6 +44,9 @@ export const AvailableSingleFood = () => {
     <>
       {" "}
       <div className={"px-64 flex gap-6 py-32 items-center"}>
+        <Helmet>
+          <title>Empower Hive | Single Food</title>
+        </Helmet>
         <div>
           <img
             src={data?.data?.food_image}

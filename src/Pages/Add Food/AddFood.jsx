@@ -3,10 +3,16 @@ import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+import squareLoading from "../../assets/azNASDnnUY.json";
 
 export const AddFood = () => {
   const { userDetails } = useContext(authContext);
   const [date, setDate] = useState("");
+  const [loading, setLoading] = useState(false);
   const onChange = (date, dateString) => {
     setDate(dateString);
   };
@@ -27,6 +33,7 @@ export const AddFood = () => {
     const food_name = target.foodname.value;
     const food_quantity = target.foodquantity.value;
     const pickup_location = target.pickuplocation.value;
+    const food_status = target.foodstatus.value;
     const expired_datetime = date;
     const additional_notes = target.notes.value;
     const addFood = {
@@ -37,8 +44,9 @@ export const AddFood = () => {
       food_name,
       food_image,
       donator,
+      food_status,
     };
-    console.log(addFood);
+    setLoading(true);
     mutation.mutate(addFood);
   };
   const mutation = useMutation({
@@ -49,12 +57,27 @@ export const AddFood = () => {
       );
     },
   });
-  console.log(mutation.error);
-  console.log(mutation.isError);
-  console.log(mutation.isSuccess);
+  useEffect(() => {
+    if (mutation.isError) {
+      setLoading(false);
+      Swal.fire("Oops...", "Something went wrong!", "error");
+    }
+    if (mutation.isSuccess) {
+      setLoading(false);
+      Swal.fire("Product Added Successfully", "", "success");
+    }
+  }, [mutation]);
   return (
     <div className={"bg-gray-100"}>
-      <div className="w-full lg:w-8/12 px-4 py-32 rounded-3xl  mx-auto  relative">
+      <Helmet>
+        <title>Empower Hive | Add Food</title>
+      </Helmet>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="w-full lg:w-8/12 px-4 py-32 rounded-3xl  mx-auto  relative"
+      >
         <div className="absolute inset-0 bg-gradient-to-r h-[700px] top-24 to-[#3BCF93] from-green-200 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative  bg-white rounded-3xl  flex flex-col min-w-0 break-words w-full mb-6 shadow-lg bg-blueGray-100 border-0">
           <form onSubmit={handleSubmit}>
@@ -191,7 +214,20 @@ export const AddFood = () => {
             </div>
           </div>
         </footer>
-      </div>
+      </motion.div>
+      {loading && (
+        <div
+          className={
+            "absolute top-0 opacity-50 w-full h-full bg-[#EAEAED] justify-center flex items-center  bg-blend-multiply"
+          }
+        >
+          <Lottie
+            animationData={squareLoading}
+            loop={true}
+            className={"h-32 "}
+          />
+        </div>
+      )}
     </div>
   );
 };

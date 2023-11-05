@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { NavLinkBar } from "./NavLinkBar.jsx";
 import { useContext } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
+import { motion } from "framer-motion";
 
 export const Navbar = () => {
   const { userDetails, SignOut } = useContext(authContext);
@@ -21,18 +22,30 @@ export const Navbar = () => {
             Empower Aid
           </p>
           <ul className="ml-auto mr-8 hidden items-center gap-[3.06rem] lg:flex">
-            <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
+            <motion.li
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
+            >
               <NavLinkBar data={"Home"} url={"/"} />
-            </li>
-            <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
+            </motion.li>
+            <motion.li
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
+            >
               <NavLinkBar url={"/available/food"} data={"Available Foods"} />
-            </li>{" "}
-            <li className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased">
+            </motion.li>{" "}
+            <motion.li
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.95 }}
+              className="block p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
+            >
               <NavLinkBar url={"/add/food"} data={"Add Food"} />
-            </li>
-            <li>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}>
               <NavLinkBar url={"/manage/food"} data={"Manage Food"} />
-            </li>
+            </motion.li>
             {userDetails && (
               <li
                 className={

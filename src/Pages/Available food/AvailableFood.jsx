@@ -2,29 +2,50 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useEffect, useState } from "react";
+import { NoData } from "./NoData.jsx";
 
 export const AvailableFood = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const target = e.target;
     const search = target.search.value;
-    console.log(search);
   };
-  const { data, error, isPending } = useQuery({
-    queryKey: ["available"],
-    queryFn: () =>
-      axios.get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food`),
-  });
+  const [datas, setDatas] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food`)
+      .then((res) => setDatas(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const [search, setSearch] = useState("");
+
+  const handleSearch = async () => {
+    await axios
+      .get(`http://localhost:3000/donation/food/search?query=${search}`)
+      .then((data) => setDatas(data.data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
+      <Helmet>
+        <title>Empower Hive | Available Food</title>
+      </Helmet>
       <div className={"px-32 py-32"}>
         <div
           className={
             "bg-[#3BCF93] px-14 mb-20 items-center py-6 rounded-lg flex justify-between "
           }
         >
-          <div>ami jani na</div>
+          <div>
+            <p className={"text-white ml-4 font-bold text-2xl"}>
+              Search Your Items
+            </p>
+          </div>
           <form
             onSubmit={handleSubmit}
             className="pt-2 relative   text-gray-600 "
@@ -34,9 +55,10 @@ export const AvailableFood = () => {
               type="text"
               name="search"
               placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
             />
             <button
-              type="submit"
+              onClick={handleSearch}
               className="absolute right-4 top-0 mt-5 mr-4 font-bold"
             >
               <svg
@@ -59,13 +81,16 @@ export const AvailableFood = () => {
         </div>
         <div
           className={
-            "grid grid-cols-3 gap-y-14 justify-items-center items-center"
+            "grid relative grid-cols-3 gap-y-14 justify-items-center items-center"
           }
         >
-          {data &&
-            data.data.map((data) => (
+          {datas.length !== 0 ? (
+            datas.map((data) => (
               <AvailableFoodDetails details={data} key={data?._id} />
-            ))}
+            ))
+          ) : (
+            <NoData />
+          )}
         </div>
       </div>
     </>
