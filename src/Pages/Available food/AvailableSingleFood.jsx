@@ -81,8 +81,10 @@ export const AvailableSingleFood = () => {
               onOk={handleOk}
               confirmLoading={confirmLoading}
               onCancel={handleCancel}
+              okType={"text"}
+              okText={"Request"}
             >
-              <div>
+              <div className={"space-y-2"}>
                 <div className={"flex justify-between"}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
@@ -170,18 +172,55 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 w-[14rem]  text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="foodname"
                     />{" "}
                   </div>
                   <div>
                     <p className={"font-semibold text-gray-600 ml-1 mb-1"}>
-                      Food Name
+                      Pickup Location
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 py-2 w-[14rem]  rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
+                      placeholder="Food Name"
+                      name="email"
+                    />{" "}
+                  </div>
+                </div>{" "}
+                <div className={"flex justify-between"}>
+                  <div>
+                    <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
+                      Expire Date
+                    </p>
+                    <input
+                      type="text"
+                      className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      placeholder="Food Name"
+                      name="foodname"
+                    />{" "}
+                  </div>
+                  <div>
+                    <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
+                      Donation Money
+                    </p>
+                    <input
+                      type="text"
+                      className=" px-2 pr-3 w-[14rem]    text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      placeholder="Food Name"
+                      name="foodname"
+                    />{" "}
+                  </div>
+                </div>{" "}
+                <div className={"flex justify-between"}>
+                  <div>
+                    <p className={"font-semibold text-gray-600 ml-1 mb-1"}>
+                      Additional Notes
+                    </p>
+                    <input
+                      type="text"
+                      className=" px-2 pr-3 py-7 w-[30rem]   text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="email"
                     />{" "}
@@ -190,16 +229,17 @@ export const AvailableSingleFood = () => {
               </div>
               <style>
                 {`
-                  .ant-modal-footer .ant-btn-primary {
+                  .ant-modal-footer .ant-btn-text {
                     background-color: #3BCF93;
                   border-color: #3BCF93;
+                  color: white;
                     }
-
-                  .ant-modal-footer .ant-btn-primary:hover {
-                   background-color: #3BCF93; // Change the hover color here
-                   border-color: #3BCF93; // Change the hover color here
-                   color : black:
-                     }
+                    .ant-btn-text:hover {
+                    background-color: #3BCF93; 
+                    border-color: #3BCF93; 
+                     
+                    }
+                 
                   `}
               </style>
             </Modal>
