@@ -56,7 +56,7 @@ export const Register = () => {
         });
     }
   };
-  const [exist, setExist] = useState(null);
+  const [exist, setExist] = useState(true);
 
   const handleGoogle = async () => {
     setLoading(true);
@@ -65,7 +65,7 @@ export const Register = () => {
         const { email, displayName } = res.user;
         const name = displayName;
         const user = { email, name };
-        setExist(null);
+
         await axios
           .get(`http://localhost:3000/user/${email}`)
           .then((res) => {
@@ -73,7 +73,7 @@ export const Register = () => {
             setExist(res.data.email);
           })
           .catch((err) => console.log(err));
-        if (!exist) {
+        if (exist !== true) {
           await axios.post("http://localhost:3000/addUser", user);
         }
 
@@ -113,6 +113,7 @@ export const Register = () => {
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="Adiyat Shihab"
                         name="name"
+                        required
                       />
                     </div>
                   </div>
@@ -129,6 +130,7 @@ export const Register = () => {
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="URl"
                         name="image"
+                        required
                       />
                     </div>
                   </div>

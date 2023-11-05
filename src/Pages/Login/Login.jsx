@@ -6,6 +6,7 @@ import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
 import squareLoading from "../../assets/azNASDnnUY.json";
+import axios from "axios";
 
 export const Login = () => {
   const { SignIn, googleSign } = useContext(authContext);
@@ -29,11 +30,28 @@ export const Login = () => {
         setError(true);
       });
   };
+  const [exist, setExist] = useState(true);
 
   const handleGoogle = async () => {
     setLoading(true);
+    setExist(null);
     await googleSign()
-      .then(async () => {
+      .then(async (resp) => {
+        const { email, displayName } = resp.user;
+        const names = displayName;
+        const user = { email, names };
+
+        await axios
+          .get(`http://localhost:3000/user/${email}`)
+          .then((res) => {
+            console.log(res.data.email);
+            setExist(res.data.email);
+          })
+          .catch((err) => console.log(err));
+        if (exist !== true) {
+          await axios.post("http://localhost:3000/addUser", user);
+        }
+
         setLoading(false);
         await Swal.fire("Register Success", "", "success");
         navigation("/");
@@ -73,6 +91,7 @@ export const Login = () => {
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="johnsmith@example.com"
                         name="email"
+                        required
                       />
                     </div>
                   </div>
@@ -91,6 +110,7 @@ export const Login = () => {
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 mb-4"
                         placeholder="************"
                         name="password"
+                        required
                       />
                     </div>
                     {error && (
