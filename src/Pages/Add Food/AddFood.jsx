@@ -1,6 +1,8 @@
 import { DatePicker } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 export const AddFood = () => {
   const { userDetails } = useContext(authContext);
@@ -37,7 +39,16 @@ export const AddFood = () => {
       donator,
     };
     console.log(addFood);
+    mutation.mutate(addFood);
   };
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return axios.post("http://localhost:3000/donation/add/food", data);
+    },
+  });
+  console.log(mutation.error);
+  console.log(mutation.isError);
+  console.log(mutation.isSuccess);
   return (
     <div className={"bg-gray-100"}>
       <div className="w-full lg:w-8/12 px-4 py-32 rounded-3xl  mx-auto  relative">
