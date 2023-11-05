@@ -82,7 +82,7 @@ const AvailableFoodDetails = ({ details }) => {
         transition={{ duration: 1 }}
         className={" "}
       >
-        <div className="focus:outline-none shadow rounded-t-lg mx-2 w-96  xl:mb-0 mb-8">
+        <div className="focus:outline-none border border-green-100 shadow rounded-t-lg mx-2 w-96  xl:mb-0 mb-8">
           <div>
             <img
               alt="person capturing an image"
@@ -110,7 +110,7 @@ const AvailableFoodDetails = ({ details }) => {
                 <Link
                   tabIndex="0"
                   className="focus:outline-none font-medium  cursor-pointer text-xs text-white"
-                  to={`/donation/food/${details._id}`}
+                  to={`/donation/food/${details?._id}`}
                 >
                   View Details
                 </Link>
