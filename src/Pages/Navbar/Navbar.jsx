@@ -9,7 +9,7 @@ export const Navbar = () => {
   console.log(userDetails);
   return (
     <>
-      <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200  lg:py-4">
+      <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white  py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200  lg:py-4">
         <div className="flex items-center px-6 md:px-14 lg:px-14 text-gray-900">
           <Link to={"/"}>
             <img

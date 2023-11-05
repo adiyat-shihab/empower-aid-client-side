@@ -5,7 +5,7 @@ import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import { DesignRegister } from "./DesignRegister.jsx";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
-import squareLoading from "../../../public/azNASDnnUY.json";
+import squareLoading from "../../assets/azNASDnnUY.json";
 
 export const Register = () => {
   const navigation = useNavigate();
@@ -57,11 +57,15 @@ export const Register = () => {
 
   const handleGoogle = async () => {
     setLoading(true);
-    await googleSign().then(async () => {
-      setLoading(false);
-      await Swal.fire("Register Success", "", "success");
-      navigation("/");
-    });
+    await googleSign()
+      .then(async () => {
+        setLoading(false);
+        await Swal.fire("Register Success", "", "success");
+        navigation("/");
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   };
 
   return (

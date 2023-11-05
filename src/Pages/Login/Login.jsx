@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
-import squareLoading from "../../../public/azNASDnnUY.json";
+import squareLoading from "../../assets/azNASDnnUY.json";
 
 export const Login = () => {
   const { SignIn, googleSign } = useContext(authContext);
@@ -33,11 +33,15 @@ export const Login = () => {
 
   const handleGoogle = async () => {
     setLoading(true);
-    await googleSign().then(async () => {
-      setLoading(false);
-      await Swal.fire("Register Success", "", "success");
-      navigation("/");
-    });
+    await googleSign()
+      .then(async () => {
+        setLoading(false);
+        await Swal.fire("Register Success", "", "success");
+        navigation("/");
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   };
 
   return (
