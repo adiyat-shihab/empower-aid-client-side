@@ -1,3 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
 export const AvailableFood = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -5,12 +10,18 @@ export const AvailableFood = () => {
     const search = target.search.value;
     console.log(search);
   };
+  const { data, error, isPending } = useQuery({
+    queryKey: ["available"],
+    queryFn: () =>
+      axios.get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food`),
+  });
+
   return (
     <>
       <div className={"px-32 py-32"}>
         <div
           className={
-            "bg-[#3BCF93] px-14 items-center py-6 rounded-lg flex justify-between "
+            "bg-[#3BCF93] px-14 mb-20 items-center py-6 rounded-lg flex justify-between "
           }
         >
           <div>ami jani na</div>
@@ -46,7 +57,116 @@ export const AvailableFood = () => {
             </button>
           </form>
         </div>
+        <div
+          className={
+            "grid grid-cols-3 gap-y-14 justify-items-center items-center"
+          }
+        >
+          {data &&
+            data.data.map((data) => (
+              <AvailableFoodDetails details={data} key={data?._id} />
+            ))}
+        </div>
       </div>
+    </>
+  );
+};
+
+const AvailableFoodDetails = ({ details }) => {
+  return (
+    <>
+      {" "}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className={" "}
+      >
+        <div className="focus:outline-none shadow rounded-t-lg mx-2 w-96  xl:mb-0 mb-8">
+          <div>
+            <img
+              alt="person capturing an image"
+              src={details?.food_image}
+              tabIndex="0"
+              className="focus:outline-none rounded-t-lg w-full h-52"
+            />
+          </div>
+          <div className=" rounded-b-lg  ">
+            <div className="flex items-center justify-between px-4 pt-4">
+              <div className={"flex gap-2 items-center"}>
+                <img
+                  src="https://i.ibb.co/1v8P6r0/boxes-1.png"
+                  alt=""
+                  className={"w-6 h-6"}
+                />
+                <p className={"text-gray-600 font-medium"}>
+                  x{details?.food_quantity}
+                </p>
+              </div>
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                className="bg-[#3BCF93] py-1 px-6 rounded-full"
+              >
+                <Link
+                  tabIndex="0"
+                  className="focus:outline-none font-medium  cursor-pointer text-xs text-white"
+                  to={`/donation/food/${details._id}`}
+                >
+                  View Details
+                </Link>
+              </motion.div>
+            </div>
+            <div className="p-4">
+              <div className="flex items-center justify-between">
+                <h2
+                  tabIndex="0"
+                  className="focus:outline-none text-lg font-semibold"
+                >
+                  {details?.food_name}
+                </h2>
+                <p
+                  tabIndex="0"
+                  className="focus:outline-none font-medium text-xs text-gray-600 pl-5"
+                >
+                  Expired In {details?.expired_datetime}
+                </p>
+              </div>
+              <p
+                tabIndex="0"
+                className="focus:outline-none font-medium text-xs text-gray-600 mt-2"
+              >
+                {details?.additional_notes}
+              </p>
+              <div className="flex mt-4 items-center font-medium gap-4">
+                <div>
+                  <img
+                    src={details?.donator?.image}
+                    alt=""
+                    className={"w-10 h-10 rounded-full"}
+                  />
+                </div>
+                <div>
+                  <p
+                    tabIndex="0"
+                    className="focus:outline-none font-medium text-xs text-gray-600 px-2 bg-gray-200 py-1"
+                  >
+                    {details?.donator?.name}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 py-4 ">
+                <img src="https://i.ibb.co/GtNfGDY/pin.png" alt="" />{" "}
+                <h2
+                  tabIndex="0"
+                  className="focus:outline-none text-[#3BCF93] text-xs font-semibold"
+                >
+                  {details?.pickup_location}
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </>
   );
 };

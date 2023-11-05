@@ -6,6 +6,7 @@ import { AvailableFood } from "../Pages/Available food/AvailableFood.jsx";
 import { AddFood } from "../Pages/Add Food/AddFood.jsx";
 import { ManageFood } from "../Pages/Manage Food/ManageFood.jsx";
 import { Home } from "../Pages/Home/Home.jsx";
+import { AvailableSingleFood } from "../Pages/Available food/AvailableSingleFood.jsx";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const Routes = () => {
         {
           path: "/manage/food",
           element: <ManageFood />,
+        },
+        {
+          path: "/donation/food/:id",
+          element: <AvailableSingleFood />,
         },
       ],
     },
