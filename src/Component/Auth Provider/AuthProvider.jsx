@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   const SignOut = () => {
+    setLoading(true);
     return signOut(auth).then((res) =>
       Swal.fire("Sign Out Successful", "", "success"),
     );
@@ -44,8 +45,8 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       const user = currentUser?.email || userDetails?.email;
       const loggedUser = { email: user };
-      setUserDetails(currentUser);
       setLoading(false);
+      setUserDetails(currentUser);
 
       // if (currentUser) {
       //   axios

@@ -42,14 +42,14 @@ export const Login = () => {
         const user = { email, names };
 
         await axios
-          .get(`http://localhost:3000/user/${email}`)
+          .get(`${import.meta.env.VITE_LOCAL_HOST}/user/${email}`)
           .then((res) => {
             console.log(res.data.email);
             setExist(res.data.email);
           })
           .catch((err) => console.log(err));
         if (exist !== true) {
-          await axios.post("http://localhost:3000/addUser", user);
+          await axios.post(`${import.meta.env.VITE_LOCAL_HOST}/addUser`, user);
         }
 
         setLoading(false);

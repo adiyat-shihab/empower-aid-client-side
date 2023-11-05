@@ -43,7 +43,10 @@ export const AddFood = () => {
   };
   const mutation = useMutation({
     mutationFn: (data) => {
-      return axios.post("http://localhost:3000/donation/add/food", data);
+      return axios.post(
+        `${import.meta.env.VITE_LOCAL_HOST}/donation/add/food`,
+        data,
+      );
     },
   });
   console.log(mutation.error);

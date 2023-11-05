@@ -45,7 +45,10 @@ export const Register = () => {
       await CreateUser(email, password)
         .then(async (res) => {
           await updateProfiles(name, photo);
-          await axios.post("http://localhost:3000/addUser", { email, name });
+          await axios.post(`${import.meta.env.VITE_LOCAL_HOST}/addUser`, {
+            email,
+            name,
+          });
           setLoading(false);
           await Swal.fire("Register Success", "", "success");
           navigation("/");
@@ -67,14 +70,14 @@ export const Register = () => {
         const user = { email, name };
 
         await axios
-          .get(`http://localhost:3000/user/${email}`)
+          .get(`${import.meta.env.VITE_LOCAL_HOST}/user/${email}`)
           .then((res) => {
             console.log(res.data.email);
             setExist(res.data.email);
           })
           .catch((err) => console.log(err));
         if (exist !== true) {
-          await axios.post("http://localhost:3000/addUser", user);
+          await axios.post(`${import.meta.env.VITE_LOCAL_HOST}/addUser`, user);
         }
 
         setLoading(false);
