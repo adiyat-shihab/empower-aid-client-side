@@ -1,15 +1,49 @@
 import { DatePicker } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 
 export const AddFood = () => {
+  const { userDetails } = useContext(authContext);
+  const [date, setDate] = useState("");
   const onChange = (date, dateString) => {
-    console.log(dateString);
+    setDate(dateString);
+  };
+  console.log(userDetails);
+  let donator = {};
+  if (userDetails) {
+    const { displayName, email, photoURL } = userDetails;
+    const image = photoURL;
+    const name = displayName;
+    donator = { name, email, image };
+  }
+  console.log(donator);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const target = e.target;
+    const food_image = target.foodimage.value;
+    const food_name = target.foodname.value;
+    const food_quantity = target.foodquantity.value;
+    const pickup_location = target.pickuplocation.value;
+    const expired_datetime = date;
+    const additional_notes = target.notes.value;
+    const addFood = {
+      additional_notes,
+      expired_datetime,
+      pickup_location,
+      food_quantity,
+      food_name,
+      food_image,
+      donator,
+    };
+    console.log(addFood);
   };
   return (
     <div className={"bg-gray-100"}>
       <div className="w-full lg:w-8/12 px-4 py-32 rounded-3xl  mx-auto  relative">
         <div className="absolute inset-0 bg-gradient-to-r h-[700px] top-24 to-[#3BCF93] from-green-200 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative  bg-white rounded-3xl  flex flex-col min-w-0 break-words w-full mb-6 shadow-lg bg-blueGray-100 border-0">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="rounded-3xl bg-white mb-0 px-6 py-8">
               <div className="text-center flex justify-between">
                 <h6 className="text-blueGray-700 text-xl font-bold">
@@ -36,6 +70,7 @@ export const AddFood = () => {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
                       name="foodname"
+                      required
                     />
                   </div>
                 </div>
@@ -49,6 +84,7 @@ export const AddFood = () => {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Food Image"
                       name="foodimage"
+                      required
                     />
                   </div>
                 </div>
@@ -58,10 +94,11 @@ export const AddFood = () => {
                       Food Quantity
                     </p>
                     <input
-                      type="text"
+                      type="number"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Food Quantity"
                       name="foodquantity"
+                      required
                     />
                   </div>
                 </div>
@@ -75,6 +112,7 @@ export const AddFood = () => {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Pickup Location"
                       name="pickuplocation"
+                      required
                     />
                   </div>
                 </div>
@@ -96,6 +134,7 @@ export const AddFood = () => {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder=" Additional Notes"
                       name="notes"
+                      required
                     />
                   </div>
                 </div>
