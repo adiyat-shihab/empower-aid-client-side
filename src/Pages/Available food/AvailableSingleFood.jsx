@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button, Modal } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 
 export const AvailableSingleFood = () => {
@@ -14,8 +14,6 @@ export const AvailableSingleFood = () => {
     queryFn: () =>
       axios.get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food/${id}`),
   });
-  console.log(data);
-  console.log(userDetails);
 
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -35,10 +33,16 @@ export const AvailableSingleFood = () => {
     console.log("Clicked cancel button");
     setOpen(false);
   };
+  const currentTime = new Date();
+  const hours = currentTime.getHours() % 12 || 12;
+  const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+  const ampm = currentTime.getHours() >= 12 ? "PM" : "AM";
+  const showTime = `${hours}:${minutes} ${ampm}`;
+
   return (
     <>
       {" "}
-      <div className={"px-64 flex gap-6 py-32"}>
+      <div className={"px-64 flex gap-6 py-32 items-center"}>
         <div>
           <img
             src={data?.data?.food_image}
@@ -73,7 +77,7 @@ export const AvailableSingleFood = () => {
               className={" mt-3 bg-[#3BCF93] rounded-lg text-white px-4 py-2 "}
               onClick={showModal}
             >
-              Open Modal
+              Request
             </button>
             <Modal
               title="Request"
@@ -84,7 +88,7 @@ export const AvailableSingleFood = () => {
               okType={"text"}
               okText={"Request"}
             >
-              <div className={"space-y-2"}>
+              <div className={"space-y-2 "}>
                 <div className={"flex justify-between"}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
@@ -175,6 +179,8 @@ export const AvailableSingleFood = () => {
                       className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="foodname"
+                      value={showTime}
+                      readOnly
                     />{" "}
                   </div>
                   <div>
