@@ -36,7 +36,7 @@ export const ManageSingleFood = () => {
   );
 };
 const ManageData = ({ details }) => {
-  console.log(details.food_id);
+  console.log(details._id);
   const navigation = useNavigate();
   const handleDelete = (id) => {
     console.log("this is id", id);
@@ -56,11 +56,11 @@ const ManageData = ({ details }) => {
             id,
           )
           .then(async (res) => {
-            axios
-              .delete(
-                `${
-                  import.meta.env.VITE_LOCAL_HOST
-                }/donation/manage/food/clear/${id}`,
+            await axios
+              .put(
+                `${import.meta.env.VITE_LOCAL_HOST}/donation/request/update/${
+                  details?._id
+                }`,
               )
               .then((r) => {
                 console.log(r);

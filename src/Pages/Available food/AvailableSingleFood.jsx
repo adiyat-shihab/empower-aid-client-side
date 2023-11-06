@@ -14,28 +14,20 @@ export const AvailableSingleFood = () => {
   const { userDetails } = useContext(authContext);
   const params = useParams();
   const { id } = params;
-  const { data } = useQuery({
-    queryKey: ["single"],
-    queryFn: () =>
-      axios.get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food/${id}`),
-  });
+  const [data, setData] = useState({});
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food/${id}`)
+      .then((res) => setData(res));
+  }, []);
   console.log(userDetails);
 
   const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
   const [loading, setLoading] = useState(false);
   const showModal = () => {
     setOpen(true);
   };
-  const handleOk = () => {
-    setModalText("The modal will be closed after two seconds");
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
+
   const handleCancel = () => {
     console.log("Clicked cancel button");
     setOpen(false);
@@ -49,19 +41,18 @@ export const AvailableSingleFood = () => {
   const requester_name = userDetails?.displayName;
   const requester_image = userDetails?.photoURL;
   const requester_email = userDetails?.email;
-  const [exist, setExist] = useState([]);
+  const [exist, setExist] = useState({});
 
-  useEffect(() => {
-    axios
-      .get(
-        `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food?query=${
-          data?.data?._id
-        }`,
-      )
-      .then((res) => setExist(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  axios
+    .get(
+      `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food?query=${
+        data?.data?._id
+      }`,
+    )
+    .then((res) => setExist(res.data))
+    .catch((err) => console.log(err));
 
+  console.log(exist?.requester_email);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const target = e.target;
@@ -76,6 +67,7 @@ export const AvailableSingleFood = () => {
     const expire_date = target.expiredate.value;
     const donation_money = target.donationmoney.value;
     const additional_notes = target.notes.value;
+    const food_status = data?.data?.food_status;
 
     const request = {
       food_name,
@@ -83,7 +75,7 @@ export const AvailableSingleFood = () => {
       food_id,
       donator_email,
       donator_name,
-
+      food_status,
       request_date,
       pickup_location,
       expire_date,
@@ -322,6 +314,7 @@ export const AvailableSingleFood = () => {
                       className=" px-2 pr-3 w-[14rem]    text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="$Amount"
                       name="donationmoney"
+                      required
                       defaultValue={"0"}
                     />{" "}
                   </div>

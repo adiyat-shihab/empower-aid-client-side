@@ -34,6 +34,7 @@ export const AddFood = () => {
     const food_status = target.foodstatus.value;
     const expired_datetime = date;
     const additional_notes = target.notes.value;
+
     const addFood = {
       additional_notes,
       expired_datetime,

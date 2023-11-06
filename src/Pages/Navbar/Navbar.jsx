@@ -46,6 +46,9 @@ export const Navbar = () => {
             <motion.li whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}>
               <NavLinkBar url={"/manage/food"} data={"Manage Food"} />
             </motion.li>
+            <motion.li whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}>
+              <NavLinkBar url={"/donation/myRequest"} data={"My Request"} />
+            </motion.li>
             {userDetails && (
               <li
                 className={
