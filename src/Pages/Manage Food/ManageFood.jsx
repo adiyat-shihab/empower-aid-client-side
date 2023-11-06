@@ -10,14 +10,14 @@ import { Link } from "react-router-dom";
 
 export const ManageFood = () => {
   const { userDetails } = useContext(authContext);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [datas, setDatas] = useState([]);
   axios
     .get(
       `http://localhost:3000/donation/food/search?query=${userDetails.email}`,
     )
     .then((res) => {
-      console.log(res.data);
+      setLoading(false);
       setDatas(res.data);
     });
 
@@ -37,16 +37,6 @@ export const ManageFood = () => {
       .catch((err) => console.log(err));
   };
 
-  //
-  // useEffect(() => {
-  //   if (mutation.isSuccess) {
-  //     console.log(mutation.isSuccess);
-  //     setLoading(false);
-  //   } else if (mutation.isError) {
-  //     console.log(mutation.error);
-  //     setLoading(false);
-  //   }
-  // }, [mutation]);
   const columns = [
     {
       title: "Food Name",
@@ -101,7 +91,7 @@ export const ManageFood = () => {
       <Helmet>
         <title>Empower Hive | Manage Food</title>
       </Helmet>
-      <div className={"lg:px-32 py-32  "}>
+      <div className={"lg:px-32 py-48  "}>
         <Table
           dataSource={datas}
           className={"cursor-pointer font-medium "}

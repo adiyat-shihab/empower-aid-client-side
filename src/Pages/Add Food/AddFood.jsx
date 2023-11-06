@@ -16,7 +16,6 @@ export const AddFood = () => {
   const onChange = (date, dateString) => {
     setDate(dateString);
   };
-  console.log(userDetails);
   let donator = {};
   if (userDetails) {
     const { displayName, email, photoURL } = userDetails;
@@ -24,7 +23,6 @@ export const AddFood = () => {
     const name = displayName;
     donator = { name, email, image };
   }
-  console.log(donator);
 
   const handleSubmit = (e) => {
     e.preventDefault();

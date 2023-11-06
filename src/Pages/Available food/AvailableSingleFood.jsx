@@ -19,6 +19,7 @@ export const AvailableSingleFood = () => {
     queryFn: () =>
       axios.get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food/${id}`),
   });
+  console.log(userDetails);
 
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -44,6 +45,10 @@ export const AvailableSingleFood = () => {
   const minutes = currentTime.getMinutes().toString().padStart(2, "0");
   const ampm = currentTime.getHours() >= 12 ? "PM" : "AM";
   const showTime = `${hours}:${minutes} ${ampm}`;
+
+  const requester_name = userDetails?.displayName;
+  const requester_image = userDetails?.photoURL;
+  const requester_email = userDetails?.email;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,6 +76,9 @@ export const AvailableSingleFood = () => {
       expire_date,
       donation_money,
       additional_notes,
+      requester_email,
+      requester_image,
+      requester_name,
     };
     setLoading(true);
     mutation.mutate(request);
