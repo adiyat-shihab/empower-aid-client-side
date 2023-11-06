@@ -6,6 +6,9 @@ import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
 import { NoData } from "./NoData.jsx";
 
+import squareLoading from "../../assets/azNASDnnUY.json";
+import Lottie from "lottie-react";
+
 export const AvailableFood = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,20 +16,28 @@ export const AvailableFood = () => {
     const search = target.search.value;
   };
   const [datas, setDatas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food`)
-      .then((res) => setDatas(res.data))
+      .then((res) => {
+        setLoading(false);
+        setDatas(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
   const [search, setSearch] = useState("");
 
   const handleSearch = async () => {
+    setLoading(true);
     await axios
       .get(`http://localhost:3000/donation/food/search?query=${search}`)
-      .then((data) => setDatas(data.data))
+      .then((data) => {
+        setLoading(false);
+        setDatas(data.data);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -42,9 +53,7 @@ export const AvailableFood = () => {
           }
         >
           <div>
-            <p className={"text-white ml-4 font-bold text-2xl"}>
-              Search Your Items
-            </p>
+            <p className={"text-white ml-4 font-bold text-2xl"}>Search Food</p>
           </div>
           <form
             onSubmit={handleSubmit}
@@ -88,6 +97,18 @@ export const AvailableFood = () => {
             datas.map((data) => (
               <AvailableFoodDetails details={data} key={data?._id} />
             ))
+          ) : loading ? (
+            <div
+              className={
+                "absolute z-50 top-0   h-full bg-[#EAEAED] justify-center flex items-center  bg-blend-multiply"
+              }
+            >
+              <Lottie
+                animationData={squareLoading}
+                loop={true}
+                className={"h-32 "}
+              />
+            </div>
           ) : (
             <NoData />
           )}
@@ -102,9 +123,9 @@ const AvailableFoodDetails = ({ details }) => {
     <>
       {" "}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.26 }}
         className={" "}
       >
         <div className="focus:outline-none border border-green-100 shadow rounded-t-lg mx-2 w-96  xl:mb-0 mb-8">
