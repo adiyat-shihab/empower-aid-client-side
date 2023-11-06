@@ -315,7 +315,6 @@ export const AvailableSingleFood = () => {
                       placeholder="$Amount"
                       name="donationmoney"
                       required
-                      defaultValue={"0"}
                     />{" "}
                   </div>
                 </div>{" "}

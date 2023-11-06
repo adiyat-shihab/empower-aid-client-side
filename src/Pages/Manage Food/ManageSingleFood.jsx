@@ -69,7 +69,7 @@ const ManageData = ({ details }) => {
             console.log(res);
 
             await Swal.fire({
-              title: "Deleted!",
+              title: "Delivered!",
               text: "Food Deliverd Successfully",
               icon: "success",
             });

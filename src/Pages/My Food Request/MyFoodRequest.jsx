@@ -19,8 +19,8 @@ export const MyFoodRequest = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  const [exist, setExist] = useState({});
 
+  const [exist, setExist] = useState({});
   const handleDelete = (id) => {
     console.log("this is id", id);
     Swal.fire({
@@ -37,12 +37,7 @@ export const MyFoodRequest = () => {
           .get(`${import.meta.env.VITE_LOCAL_HOST}/food/reques/${id}`)
           .then((res) => setExist(res.data));
 
-        if (exist.food_status === "Delivered") {
-          Swal.fire({
-            title: "You Can't Cancel",
-            icon: "error",
-          });
-        } else {
+        if (exist.food_status === "Available") {
           axios
             .delete(
               `${import.meta.env.VITE_LOCAL_HOST}/food/reques/delete/${id}`,
@@ -58,11 +53,17 @@ export const MyFoodRequest = () => {
               });
             })
             .catch((err) => console.log(err));
+        } else {
+          Swal.fire({
+            title: "You Can't Cancel",
+            icon: "error",
+          });
         }
       }
     });
   };
-  console.log(exist.food_status);
+  console.log(exist.food_status === "Delivered");
+
   const columns = [
     {
       title: "Donar Name",
