@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
@@ -10,22 +10,43 @@ import { Link } from "react-router-dom";
 
 export const ManageFood = () => {
   const { userDetails } = useContext(authContext);
-  const [loading, setLoading] = useState(true);
-  const { data, isError, error } = useQuery({
-    queryKey: ["user data"],
-    queryFn: () =>
-      axios.get(
-        `http://localhost:3000/donation/food/search?query=${userDetails.email}`,
-      ),
-  });
-  console.log(userDetails?.email);
-  console.log(data?.data);
-  useEffect(() => {
-    if (data) {
-      setLoading(false);
-    }
-  }, [data]);
+  const [loading, setLoading] = useState(false);
+  const [datas, setDatas] = useState([]);
+  axios
+    .get(
+      `http://localhost:3000/donation/food/search?query=${userDetails.email}`,
+    )
+    .then((res) => {
+      console.log(res.data);
+      setDatas(res.data);
+    });
 
+  const handleDelete = (id) => {
+    console.log("this is id", id);
+    setLoading(true);
+
+    axios
+      .delete(
+        `${import.meta.env.VITE_LOCAL_HOST}/donation/food/clear/${id}`,
+        id,
+      )
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //
+  // useEffect(() => {
+  //   if (mutation.isSuccess) {
+  //     console.log(mutation.isSuccess);
+  //     setLoading(false);
+  //   } else if (mutation.isError) {
+  //     console.log(mutation.error);
+  //     setLoading(false);
+  //   }
+  // }, [mutation]);
   const columns = [
     {
       title: "Food Name",
@@ -62,6 +83,7 @@ export const ManageFood = () => {
             </button>
           </Link>
           <button
+            onClick={() => handleDelete(id)}
             className={
               ' bg-red-500 text-white cursor-pointer active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"'
             }
@@ -81,7 +103,7 @@ export const ManageFood = () => {
       </Helmet>
       <div className={"lg:px-32 py-32  "}>
         <Table
-          dataSource={data?.data}
+          dataSource={datas}
           className={"cursor-pointer font-medium "}
           columns={columns}
           scroll={{ x: true }}
