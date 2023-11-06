@@ -6,6 +6,7 @@ import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import { Table } from "antd";
 import Lottie from "lottie-react";
 import squareLoading from "../../assets/azNASDnnUY.json";
+import { Link } from "react-router-dom";
 
 export const ManageFood = () => {
   const { userDetails } = useContext(authContext);
@@ -46,7 +47,31 @@ export const ManageFood = () => {
       dataIndex: "expired_datetime",
       key: "expired_datetime",
     },
-    // Add more columns as needed
+    {
+      title: "Manage Food",
+      dataIndex: "_id",
+      render: (id) => (
+        <div className={"gap-1 flex"}>
+          <Link to={`/donation/food/manage/${id}`}>
+            <button
+              className={
+                ' bg-[#3BCF93] text-white cursor-pointer active:bg-green-800 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"'
+              }
+            >
+              Manage
+            </button>
+          </Link>
+          <button
+            className={
+              ' bg-red-500 text-white cursor-pointer active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"'
+            }
+          >
+            Delete
+          </button>
+        </div>
+      ),
+      key: "manageFood",
+    },
   ];
 
   return (
@@ -54,11 +79,13 @@ export const ManageFood = () => {
       <Helmet>
         <title>Empower Hive | Manage Food</title>
       </Helmet>
-      <div className={"px-32 py-32 "}>
+      <div className={"lg:px-32 py-32  "}>
         <Table
           dataSource={data?.data}
-          className={"cursor-pointer"}
+          className={"cursor-pointer font-medium "}
           columns={columns}
+          scroll={{ x: true }}
+          responsive={["sm"]}
         />
       </div>
       {loading && (
