@@ -49,8 +49,18 @@ export const AvailableSingleFood = () => {
   const requester_name = userDetails?.displayName;
   const requester_image = userDetails?.photoURL;
   const requester_email = userDetails?.email;
+  const [exist, setExist] = useState([]);
 
-  const handleSubmit = (e) => {
+  axios
+    .get(
+      `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food?query=${
+        data?.data?._id
+      }`,
+    )
+    .then((res) => setExist(res.data))
+    .catch((err) => console.log(err));
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const target = e.target;
     const food_name = target.foodname.value;
@@ -58,19 +68,20 @@ export const AvailableSingleFood = () => {
     const food_id = target.foodid.value;
     const donator_email = target.donatoremail.value;
     const donator_name = target.donatorname.value;
-    const user_email = target.useremail.value;
+
     const request_date = target.requestdate.value;
     const pickup_location = target.pickuplocation.value;
     const expire_date = target.expiredate.value;
     const donation_money = target.donationmoney.value;
     const additional_notes = target.notes.value;
+
     const request = {
       food_name,
       food_image,
       food_id,
       donator_email,
       donator_name,
-      user_email,
+
       request_date,
       pickup_location,
       expire_date,
@@ -81,26 +92,37 @@ export const AvailableSingleFood = () => {
       requester_name,
     };
     setLoading(true);
-    mutation.mutate(request);
+
+    if (exist?.requester_email === requester_email) {
+      setLoading(false);
+      Swal.fire({
+        title: "You Request This Already",
+        icon: "error",
+      });
+    } else {
+      setLoading(false);
+      mutation.mutate(request);
+    }
     console.log(request);
     setOpen(false);
   };
-
+  console.log(exist?.requester_email);
   const mutation = useMutation({
     mutationFn: (food) => {
-      return axios.post(
-        `${import.meta.env.VITE_LOCAL_HOST}/donation/food/request`,
-        food,
-      );
+      return axios
+        .post(`${import.meta.env.VITE_LOCAL_HOST}/donation/food/request`, food)
+        .then(() =>
+          Swal.fire({
+            title: "Request Successfully",
+            icon: "success",
+          }),
+        );
     },
   });
   useEffect(() => {
     if (mutation.isSuccess) {
       setLoading(false);
-      Swal.fire({
-        title: "Data Added Successfully",
-        icon: "success",
-      });
+
       console.log("data added succesful");
     }
     if (mutation.isError) {
@@ -112,6 +134,7 @@ export const AvailableSingleFood = () => {
       console.log("getting error", mutation.error.message);
     }
   }, [mutation]);
+
   return (
     <>
       {" "}
@@ -213,7 +236,7 @@ export const AvailableSingleFood = () => {
                       className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="donatoremail"
-                      value={data?.data?.donator?.name}
+                      value={data?.data?.donator?.email}
                       readOnly
                     />{" "}
                   </div>

@@ -37,8 +37,8 @@ const ManageData = ({ details }) => {
   return (
     <>
       {" "}
-      <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex flex-col items-center pb-10">
+      <div className="w-full py-10 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex flex-col items-center">
           <img
             className="w-24 h-24 mb-3 rounded-full shadow-lg"
             src={details?.requester_image}
@@ -48,14 +48,22 @@ const ManageData = ({ details }) => {
             {details?.requester_name}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            Visual Designer
+            {details?.requester_email}
           </span>
-          <div className="flex mt-4 space-x-3 md:mt-6">
-            <motion.button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg bg-[#3BCF93] ">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            Requested Date {details?.request_date}
+          </span>
+          <div className="flex mt-4 mx-auto items-center  md:mt-6">
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg bg-[#3BCF93] "
+            >
               Delivered
             </motion.button>
           </div>
         </div>
+        <div className={"flex justify-center"}></div>
       </div>
     </>
   );
