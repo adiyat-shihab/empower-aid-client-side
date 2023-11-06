@@ -12,7 +12,7 @@ export const AvailableFood = () => {
     const target = e.target;
     const search = target.search.value;
   };
-  const [datas, setDatas] = useState(null);
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     axios
