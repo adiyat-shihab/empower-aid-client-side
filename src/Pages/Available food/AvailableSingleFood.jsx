@@ -51,14 +51,16 @@ export const AvailableSingleFood = () => {
   const requester_email = userDetails?.email;
   const [exist, setExist] = useState([]);
 
-  axios
-    .get(
-      `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food?query=${
-        data?.data?._id
-      }`,
-    )
-    .then((res) => setExist(res.data))
-    .catch((err) => console.log(err));
+  useEffect(() => {
+    axios
+      .get(
+        `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food?query=${
+          data?.data?._id
+        }`,
+      )
+      .then((res) => setExist(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

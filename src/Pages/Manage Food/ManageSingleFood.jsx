@@ -59,7 +59,7 @@ const ManageData = ({ details }) => {
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg bg-[#3BCF93] "
             >
-              Delivered
+              Deliver
             </motion.button>
           </div>
         </div>
