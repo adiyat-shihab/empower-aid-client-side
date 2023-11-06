@@ -75,7 +75,7 @@ export const AddFood = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.25 }}
         className="w-full lg:w-8/12 px-4 py-32 rounded-3xl  mx-auto  relative"
       >
         <div className="absolute inset-0 bg-gradient-to-r h-[700px] top-24 to-[#3BCF93] from-green-200 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>

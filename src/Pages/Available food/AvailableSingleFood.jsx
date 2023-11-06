@@ -1,10 +1,14 @@
-import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+import squareLoading from "../../assets/azNASDnnUY.json";
+import Swal from "sweetalert2";
 
 export const AvailableSingleFood = () => {
   const { userDetails } = useContext(authContext);
@@ -19,6 +23,7 @@ export const AvailableSingleFood = () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
+  const [loading, setLoading] = useState(false);
   const showModal = () => {
     setOpen(true);
   };
@@ -40,10 +45,69 @@ export const AvailableSingleFood = () => {
   const ampm = currentTime.getHours() >= 12 ? "PM" : "AM";
   const showTime = `${hours}:${minutes} ${ampm}`;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const target = e.target;
+    const food_name = target.foodname.value;
+    const food_image = target.foodimage.value;
+    const food_id = target.foodid.value;
+    const donator_email = target.donatoremail.value;
+    const donator_name = target.donatorname.value;
+    const user_email = target.useremail.value;
+    const request_date = target.requestdate.value;
+    const pickup_location = target.pickuplocation.value;
+    const expire_date = target.expiredate.value;
+    const donation_money = target.donationmoney.value;
+    const additional_notes = target.notes.value;
+    const request = {
+      food_name,
+      food_image,
+      food_id,
+      donator_email,
+      donator_name,
+      user_email,
+      request_date,
+      pickup_location,
+      expire_date,
+      donation_money,
+      additional_notes,
+    };
+    setLoading(true);
+    mutation.mutate(request);
+    console.log(request);
+    setOpen(false);
+  };
+
+  const mutation = useMutation({
+    mutationFn: (food) => {
+      return axios.post(
+        `${import.meta.env.VITE_LOCAL_HOST}/donation/food/request`,
+        food,
+      );
+    },
+  });
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      setLoading(false);
+      Swal.fire({
+        title: "Data Added Successfully",
+        icon: "success",
+      });
+      console.log("data added succesful");
+    }
+    if (mutation.isError) {
+      setLoading(false);
+      Swal.fire({
+        title: "Something Went Wrong",
+        icon: "error",
+      });
+      console.log("getting error", mutation.error.message);
+    }
+  }, [mutation]);
   return (
     <>
       {" "}
-      <div className={"px-64 flex gap-6 py-32 items-center"}>
+      <div className={"px-64 relative flex gap-6 py-32 items-center"}>
         <Helmet>
           <title>Empower Hive | Single Food</title>
         </Helmet>
@@ -85,14 +149,11 @@ export const AvailableSingleFood = () => {
             </button>
             <Modal
               title="Request"
+              footer={null}
               open={open}
-              onOk={handleOk}
-              confirmLoading={confirmLoading}
               onCancel={handleCancel}
-              okType={"text"}
-              okText={"Request"}
             >
-              <div className={"space-y-2 "}>
+              <form onSubmit={handleSubmit} className={"space-y-2 z-10 "}>
                 <div className={"flex justify-between"}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
@@ -130,7 +191,7 @@ export const AvailableSingleFood = () => {
                       type="text"
                       className=" px-2 pr-3 w-[14rem]  text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
-                      name="foodname"
+                      name="foodid"
                       readOnly
                       value={data?.data?._id}
                     />{" "}
@@ -143,7 +204,9 @@ export const AvailableSingleFood = () => {
                       type="text"
                       className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
-                      name="email"
+                      name="donatoremail"
+                      value={data?.data?.donator?.name}
+                      readOnly
                     />{" "}
                   </div>
                 </div>{" "}
@@ -156,7 +219,9 @@ export const AvailableSingleFood = () => {
                       type="text"
                       className=" px-2 pr-3 w-[14rem] py-2  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
-                      name="foodname"
+                      name="donatorname"
+                      value={data?.data?.donator?.name}
+                      readOnly
                     />{" "}
                   </div>
                   <div>
@@ -167,7 +232,7 @@ export const AvailableSingleFood = () => {
                       type="text"
                       className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
-                      name="email"
+                      name="useremail"
                       value={userDetails?.email}
                       readOnly
                     />{" "}
@@ -181,8 +246,8 @@ export const AvailableSingleFood = () => {
                     <input
                       type="text"
                       className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
-                      placeholder="Food Name"
-                      name="foodname"
+                      placeholder="Request Date"
+                      name="requestdate"
                       value={showTime}
                       readOnly
                     />{" "}
@@ -195,7 +260,9 @@ export const AvailableSingleFood = () => {
                       type="text"
                       className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
-                      name="email"
+                      value={data?.data?.pickup_location}
+                      readOnly
+                      name="pickuplocation"
                     />{" "}
                   </div>
                 </div>{" "}
@@ -208,7 +275,9 @@ export const AvailableSingleFood = () => {
                       type="text"
                       className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
-                      name="foodname"
+                      name="expiredate"
+                      value={data?.data?.expired_datetime}
+                      readOnly
                     />{" "}
                   </div>
                   <div>
@@ -216,10 +285,11 @@ export const AvailableSingleFood = () => {
                       Donation Money
                     </p>
                     <input
-                      type="text"
+                      type="number"
                       className=" px-2 pr-3 w-[14rem]    text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
-                      placeholder="Food Name"
-                      name="foodname"
+                      placeholder="$Amount"
+                      name="donationmoney"
+                      required
                     />{" "}
                   </div>
                 </div>{" "}
@@ -231,18 +301,28 @@ export const AvailableSingleFood = () => {
                     <input
                       type="text"
                       className=" px-2 pr-3 py-7 w-[30rem]   text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
-                      placeholder="Food Name"
-                      name="email"
+                      placeholder="Notes"
+                      name="notes"
                     />{" "}
                   </div>
                 </div>{" "}
-              </div>
+                <div className={"justify-end flex gap-3 pt-4"}>
+                  <motion.input
+                    whileTap={{ scale: 0.9 }}
+                    type="submit"
+                    className={
+                      "bg-[#3BCF93] cursor-pointer hover:bg-green-500 text-white px-3 py-2 rounded-lg "
+                    }
+                  />
+                </div>
+              </form>
               <style>
                 {`
                   .ant-modal-footer .ant-btn-text {
                     background-color: #3BCF93;
                   border-color: #3BCF93;
                   color: white;
+                  display: none;
                     }
                     .ant-btn-text:hover {
                     background-color: #3BCF93; 
@@ -256,6 +336,19 @@ export const AvailableSingleFood = () => {
           </div>
         </div>
       </div>
+      {loading && (
+        <div
+          className={
+            "absolute z-50 top-0 w-full opacity-50  h-full bg-[#EAEAED] justify-center flex items-center  bg-blend-multiply"
+          }
+        >
+          <Lottie
+            animationData={squareLoading}
+            loop={true}
+            className={"h-32 "}
+          />
+        </div>
+      )}
     </>
   );
 };
