@@ -11,7 +11,7 @@ export const ManageSingleFood = () => {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food?query=${
+        `${import.meta.env.VITE_LOCAL_HOST}/donation/manage/food/search?query=${
           param.id
         }`,
       )

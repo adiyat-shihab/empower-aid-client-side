@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NoData } from "./NoData.jsx";
 
 import squareLoading from "../../assets/azNASDnnUY.json";
 import Lottie from "lottie-react";
+import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 
 export const AvailableFood = () => {
   const handleSubmit = (e) => {
@@ -119,6 +120,19 @@ export const AvailableFood = () => {
 };
 
 const AvailableFoodDetails = ({ details }) => {
+  const { userDetails } = useContext(authContext);
+  const navigation = useNavigate();
+  const handleSingle = () => {
+    if (userDetails) {
+      if (details?.donator?.email === userDetails?.email) {
+        navigation("/manage/food");
+      } else {
+        navigation(`/donation/food/${details?._id}`);
+      }
+    } else {
+      navigation("/login");
+    }
+  };
   return (
     <>
       {" "}
@@ -153,13 +167,13 @@ const AvailableFoodDetails = ({ details }) => {
                 whileHover={{ scale: 1.04 }}
                 className="bg-[#3BCF93] py-1 px-6 rounded-full"
               >
-                <Link
+                <button
                   tabIndex="0"
                   className="focus:outline-none font-medium  cursor-pointer text-xs text-white"
-                  to={`/donation/food/${details?._id}`}
+                  onClick={handleSingle}
                 >
                   View Details
-                </Link>
+                </button>
               </motion.div>
             </div>
             <div className="p-4">

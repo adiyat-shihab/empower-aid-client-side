@@ -1,41 +1,67 @@
 import { Helmet } from "react-helmet";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import { Table } from "antd";
-import Lottie from "lottie-react";
-import squareLoading from "../../assets/azNASDnnUY.json";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const ManageFood = () => {
   const { userDetails } = useContext(authContext);
-  const [loading, setLoading] = useState(true);
   const [datas, setDatas] = useState([]);
-  axios
-    .get(
-      `http://localhost:3000/donation/food/search?query=${userDetails.email}`,
-    )
-    .then((res) => {
-      setLoading(false);
-      setDatas(res.data);
-    });
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3000/donation/food/search?query=${userDetails.email}`,
+      )
+      .then((res) => {
+        setDatas(res.data);
+      });
+  }, []);
 
   const handleDelete = (id) => {
     console.log("this is id", id);
-    setLoading(true);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            `${import.meta.env.VITE_LOCAL_HOST}/donation/food/clear/${id}`,
+            id,
+          )
+          .then((res) => {
+            axios
+              .delete(
+                `${
+                  import.meta.env.VITE_LOCAL_HOST
+                }/donation/manage/food/clear/${id}`,
+              )
+              .then((r) => {
+                console.log(r);
+              })
+              .catch((err) => console.log(err));
+            console.log(res);
 
-    axios
-      .delete(
-        `${import.meta.env.VITE_LOCAL_HOST}/donation/food/clear/${id}`,
-        id,
-      )
-      .then((res) => {
-        setLoading(false);
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+            const remaining = datas.filter((data) => data._id !== id);
+            setDatas(remaining);
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
+  console.log(datas);
 
   const columns = [
     {
@@ -100,19 +126,6 @@ export const ManageFood = () => {
           responsive={["sm"]}
         />
       </div>
-      {loading && (
-        <div
-          className={
-            "absolute top-0  w-full h-[78%] bg-[#EAEAED] justify-center flex items-center  bg-blend-multiply"
-          }
-        >
-          <Lottie
-            animationData={squareLoading}
-            loop={true}
-            className={"h-32 "}
-          />
-        </div>
-      )}
     </div>
   );
 };
