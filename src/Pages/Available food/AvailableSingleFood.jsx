@@ -322,7 +322,7 @@ export const AvailableSingleFood = () => {
                       className=" px-2 pr-3 w-[14rem]    text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="$Amount"
                       name="donationmoney"
-                      required
+                      defaultValue={"0"}
                     />{" "}
                   </div>
                 </div>{" "}

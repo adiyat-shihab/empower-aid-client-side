@@ -10,6 +10,7 @@ import { AvailableSingleFood } from "../Pages/Available food/AvailableSingleFood
 import { PrivateRoute } from "../Component/Private Route/PrivateRoute.jsx";
 import { Helmet } from "react-helmet";
 import { ManageSingleFood } from "../Pages/Manage Food/ManageSingleFood.jsx";
+import { UpdateFood } from "../Pages/Manage Food/UpdateFood.jsx";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -62,6 +63,14 @@ export const Routes = () => {
           element: (
             <PrivateRoute>
               <ManageSingleFood />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/donation/update/:id",
+          element: (
+            <PrivateRoute>
+              <UpdateFood />
             </PrivateRoute>
           ),
         },

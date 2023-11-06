@@ -106,6 +106,15 @@ export const ManageFood = () => {
           >
             Delete
           </button>
+          <Link to={`/donation/update/${id}`}>
+            <button
+              className={
+                '  bg-blue-500 text-white cursor-pointer active:bg-green-800 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"'
+              }
+            >
+              Update
+            </button>
+          </Link>
         </div>
       ),
       key: "manageFood",
