@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Empty } from "antd";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 export const ManageSingleFood = () => {
   const param = useParams();
@@ -19,6 +20,7 @@ export const ManageSingleFood = () => {
       .catch((err) => console.log(err));
   }, [param.id]);
   console.log(Data);
+
   return (
     <>
       <div
@@ -34,6 +36,49 @@ export const ManageSingleFood = () => {
   );
 };
 const ManageData = ({ details }) => {
+  console.log(details.food_id);
+  const navigation = useNavigate();
+  const handleDelete = (id) => {
+    console.log("this is id", id);
+    Swal.fire({
+      title: "Are you sure to deliver?",
+
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, do it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            `${import.meta.env.VITE_LOCAL_HOST}/donation/food/clear/${id}`,
+            id,
+          )
+          .then(async (res) => {
+            axios
+              .delete(
+                `${
+                  import.meta.env.VITE_LOCAL_HOST
+                }/donation/manage/food/clear/${id}`,
+              )
+              .then((r) => {
+                console.log(r);
+              })
+              .catch((err) => console.log(err));
+            console.log(res);
+
+            await Swal.fire({
+              title: "Deleted!",
+              text: "Food Deliverd Successfully",
+              icon: "success",
+            });
+            navigation("/");
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
   return (
     <>
       {" "}
@@ -57,6 +102,7 @@ const ManageData = ({ details }) => {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => handleDelete(details.food_id)}
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg bg-[#3BCF93] "
             >
               Deliver
