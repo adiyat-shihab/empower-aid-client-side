@@ -48,21 +48,21 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       setUserDetails(currentUser);
 
-      // if (currentUser) {
-      //   axios
-      //     .post("https://course-roter-backend.vercel.app/jwt", loggedUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => console.log(res.data))
-      //     .catch((err) => console.log(err));
-      // } else {
-      //   axios
-      //     .post("https://course-roter-backend.vercel.app/clear", loggedUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((r) => console.log(r))
-      //     .catch((err) => console.log(err));
-      // }
+      if (currentUser) {
+        axios
+          .post(`${import.meta.env.VITE_LOCAL_HOST}/jwt`, loggedUser, {
+            withCredentials: true,
+          })
+          .then()
+          .catch((err) => console.log(err));
+      } else {
+        axios
+          .post(`${import.meta.env.VITE_LOCAL_HOST}/clear`, loggedUser, {
+            withCredentials: true,
+          })
+          .then((r) => console.log(r))
+          .catch((err) => console.log(err));
+      }
     });
     return () => {
       return unsubscribe();

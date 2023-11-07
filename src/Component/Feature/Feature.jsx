@@ -59,7 +59,7 @@ export const Feature = () => {
             <NoData />
           )}
         </div>
-        <div className={"flex justify-center"}>
+        <div className={"flex justify-center mt-9"}>
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.95 }}

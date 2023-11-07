@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet";
 import { ManageSingleFood } from "../Pages/Manage Food/ManageSingleFood.jsx";
 import { UpdateFood } from "../Pages/Manage Food/UpdateFood.jsx";
 import { MyFoodRequest } from "../Pages/My Food Request/MyFoodRequest.jsx";
+import { ErrorPage } from "../Pages/Error/ErrorPage.jsx";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -84,6 +85,7 @@ export const Routes = () => {
           ),
         },
       ],
+      errorElement: <ErrorPage />,
     },
   ]);
 
