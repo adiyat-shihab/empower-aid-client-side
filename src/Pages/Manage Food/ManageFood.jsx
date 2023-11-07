@@ -12,7 +12,9 @@ export const ManageFood = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3000/donation/food/search?query=${userDetails.email}`,
+        `${import.meta.env.VITE_LOCAL_HOST}/donation/food/search?query=${
+          userDetails.email
+        }`,
       )
       .then((res) => {
         setDatas(res.data);

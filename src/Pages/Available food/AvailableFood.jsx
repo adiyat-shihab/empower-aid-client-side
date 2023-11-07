@@ -35,7 +35,11 @@ export const AvailableFood = () => {
   const handleSearch = async () => {
     setLoading(true);
     await axios
-      .get(`http://localhost:3000/donation/food/search?query=${search}`)
+      .get(
+        `${
+          import.meta.env.VITE_LOCAL_HOST
+        }/donation/food/search?query=${search}`,
+      )
       .then((data) => {
         setLoading(false);
         setDatas(data.data);

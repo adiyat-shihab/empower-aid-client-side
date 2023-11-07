@@ -10,7 +10,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky inset-0 z-10 block  h-max w-full max-w-full rounded-none border border-white/80 bg-white  py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200  lg:py-4">
+      <nav className="sticky inset-0 block  h-max w-full z-[100] max-w-full rounded-none border border-white/80 bg-white  py-2  text-white shadow-md backdrop-blur-2xl backdrop-saturate-200  lg:py-4">
         <div className="flex items-center px-6 md:px-14 lg:px-14 text-gray-900">
           <Link to={"/"}>
             <img
@@ -22,7 +22,7 @@ export const Navbar = () => {
           <p className="uppercase cursor-default font-bold ml-2 tracking-[3px] text-xs md:text-base hidden md:flex">
             Empower Aid
           </p>
-          <ul className="ml-auto mr-8 hidden items-center gap-[3.06rem] lg:flex">
+          <ul className="ml-auto mr-8 hidden items-center gap-[3.06rem] xl:flex">
             <motion.li
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.03 }}
@@ -90,7 +90,7 @@ export const Navbar = () => {
             )}
           </ul>
           <button
-            className="middle none relative ml-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden"
+            className="middle none relative ml-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none xl:hidden"
             data-collapse-target="sticky-navar"
             onClick={() => setOpen(true)}
           >
@@ -118,7 +118,7 @@ export const Navbar = () => {
             transition={{ duration: 0.45 }}
             exit={{ x: -600 }}
             className={
-              "bg-white sticky w-screen h-screen  z-50 -mt-14  py-10 px-6 "
+              "bg-white sticky w-screen h-screen  z-50 -mt-14  py-10 px-5 "
             }
           >
             {" "}

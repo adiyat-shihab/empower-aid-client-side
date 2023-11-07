@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import squareLoading from "../../assets/azNASDnnUY.json";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 export const Register = () => {
   const navigation = useNavigate();
@@ -15,6 +16,7 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const [passValidation, setPassValidation] = useState("");
   const [validation, setValidation] = useState("");
+  const [see, setSee] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -71,14 +73,14 @@ export const Register = () => {
         const user = { email, name };
 
         await axios
-          .get(`http://localhost:3000/user/${email}`)
+          .get(`${import.meta.env.VITE_LOCAL_HOST}/user/${email}`)
           .then((resp) => {
             console.log(resp.data.email);
             setExist(resp.data.email);
           })
           .catch((err) => console.log(err));
         if (exist !== true) {
-          await axios.post(`http://localhost:3000/addUser`, user);
+          await axios.post(`${import.meta.env.VITE_LOCAL_HOST}/addUser`, user);
         }
 
         setLoading(false);
@@ -164,17 +166,32 @@ export const Register = () => {
                     <label className="text-xs font-semibold px-1">
                       Password
                     </label>
-                    <div className="flex">
+                    <div className="flex relative">
                       <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
                       </div>
                       <input
-                        type="password"
+                        type={see ? "text" : "password"}
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="************"
                         name="password"
                         required
                       />
+                      {see ? (
+                        <HiEyeOff
+                          className={
+                            " absolute right-4 top-4 text-black  cursor-pointer"
+                          }
+                          onClick={() => setSee(!see)}
+                        />
+                      ) : (
+                        <HiEye
+                          className={
+                            " absolute right-4 top-4 text-black cursor-pointer"
+                          }
+                          onClick={() => setSee(!see)}
+                        />
+                      )}
                     </div>
                     <strong className={"text-red-400"}>
                       {passValidation || validation}

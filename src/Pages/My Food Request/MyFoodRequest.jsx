@@ -13,7 +13,9 @@ export const MyFoodRequest = () => {
 
   axios
     .get(
-      `http://localhost:3000/donation/request/search?query=${userDetails.email}`,
+      `${import.meta.env.VITE_LOCAL_HOST}/donation/request/search?query=${
+        userDetails.email
+      }`,
     )
     .then((res) => {
       setData(res.data);
