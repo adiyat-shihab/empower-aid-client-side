@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useContext, useEffect, useState } from "react";
 import { NoData } from "./NoData.jsx";
+import { Checkbox } from "antd";
 
 import squareLoading from "../../assets/azNASDnnUY.json";
 import Lottie from "lottie-react";
@@ -42,6 +43,28 @@ export const AvailableFood = () => {
       .catch((err) => console.log(err));
   };
 
+  const onCheckChange = (e) => {
+    setLoading(true);
+    if (e.target.checked === true) {
+      axios
+        .get(`${import.meta.env.VITE_LOCAL_HOST}/donation/sort`)
+        .then((res) => {
+          setLoading(false);
+          setDatas(res.data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log("ami jani na");
+      axios
+        .get(`${import.meta.env.VITE_LOCAL_HOST}/donation/food`)
+        .then((res) => {
+          setLoading(false);
+          setDatas(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -55,6 +78,13 @@ export const AvailableFood = () => {
         >
           <div>
             <p className={"text-white ml-4 font-bold text-2xl"}>Search Food</p>
+          </div>
+          <div>
+            <Checkbox onChange={onCheckChange}>
+              <span className={"text-white font-semibold text-base"}>
+                Sort By Expired Date
+              </span>
+            </Checkbox>
           </div>
           <form
             onSubmit={handleSubmit}

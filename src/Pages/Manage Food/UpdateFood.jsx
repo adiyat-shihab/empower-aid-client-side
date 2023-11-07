@@ -41,7 +41,7 @@ export const UpdateFood = () => {
     const target = e.target;
     const food_image = target.foodimage.value;
     const food_name = target.foodname.value;
-    const food_quantity = target.foodquantity.value;
+    const food_quantity = parseInt(target.foodquantity.value);
     const pickup_location = target.pickuplocation.value;
     const expired_datetime = date;
     const additional_notes = target.notes.value;
@@ -73,7 +73,7 @@ export const UpdateFood = () => {
       setLoading(false);
       Swal.fire("Food Update  Successfully", "", "success");
     }
-  }, [mutation]);
+  }, [mutation.isSuccess]);
   return (
     <div className={"bg-gray-100"}>
       <Helmet>
@@ -140,7 +140,7 @@ export const UpdateFood = () => {
                       Food Quantity
                     </p>
                     <input
-                      type="text"
+                      type="number"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Food Quantity"
                       name="foodquantity"
