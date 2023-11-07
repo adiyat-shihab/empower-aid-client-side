@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import { NavLinkBar } from "./NavLinkBar.jsx";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { authContext } from "../../Component/Auth Provider/AuthProvider.jsx";
 import { motion } from "framer-motion";
 
 export const Navbar = () => {
   const { userDetails, SignOut } = useContext(authContext);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -13,7 +14,7 @@ export const Navbar = () => {
         <div className="flex items-center px-6 md:px-14 lg:px-14 text-gray-900">
           <Link to={"/"}>
             <img
-              src="https://i.ibb.co/c6j3YWs/White-Green-Simple-Illustrative-Food-Logo-1.png"
+              src="https://i.ibb.co/stj4qZN/White-Green-Simple-Illustrative-Food-Logo-3.png"
               className={" md:w-[65px] w-[50px] rounded-lg  lg:h-auto"}
               alt={"logo "}
             />
@@ -91,6 +92,7 @@ export const Navbar = () => {
           <button
             className="middle none relative ml-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden"
             data-collapse-target="sticky-navar"
+            onClick={() => setOpen(true)}
           >
             <span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
               <svg
@@ -109,6 +111,61 @@ export const Navbar = () => {
             </span>
           </button>
         </div>
+        {open && (
+          <motion.div
+            initial={{ x: -600 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.45 }}
+            exit={{ x: -600 }}
+            className={
+              "bg-white sticky w-screen h-screen  z-50 -mt-14  py-10 px-6 "
+            }
+          >
+            {" "}
+            <div className={"flex justify-end"}>
+              <img
+                src="https://i.ibb.co/0JtMkmb/close.png"
+                alt=""
+                className={"w-[24px] h-[24px]"}
+                onClick={() => setOpen(false)}
+              />
+            </div>
+            <ul className={"space-y-10"}>
+              <li
+                className={"border-b-2 pb-4 border-b-gray-300"}
+                onClick={() => setOpen(false)}
+              >
+                <NavLinkBar data={"Home"} url={"/"} />
+              </li>
+              <li
+                className={"border-b-2 pb-4 border-b-gray-300"}
+                onClick={() => setOpen(false)}
+              >
+                <NavLinkBar url={"/available/food"} data={"Available Foods"} />
+              </li>
+              <li
+                className={"border-b-2 pb-4 border-b-gray-300"}
+                onClick={() => setOpen(false)}
+              >
+                <NavLinkBar url={"/add/food"} data={"Add Food"} />
+              </li>
+              <li
+                className={"border-b-2 pb-4 border-b-gray-300"}
+                onClick={() => setOpen(false)}
+              >
+                {" "}
+                <NavLinkBar url={"/manage/food"} data={"Manage Food"} />
+              </li>
+              <li
+                className={"border-b-2 pb-4 border-b-gray-300"}
+                onClick={() => setOpen(false)}
+              >
+                {" "}
+                <NavLinkBar url={"/donation/myRequest"} data={"My Request"} />
+              </li>
+            </ul>
+          </motion.div>
+        )}
       </nav>
     </>
   );

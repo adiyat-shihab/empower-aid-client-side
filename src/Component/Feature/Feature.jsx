@@ -24,9 +24,11 @@ export const Feature = () => {
 
   return (
     <>
-      <div className={"px-32 py-32"}>
+      <div className={"xl:px-32 py-32"}>
         <div
-          className={"bg-[#3BCF93] px-14 mb-20 items-center py-6 rounded-lg   "}
+          className={
+            "bg-[#3BCF93] xl:px-14 mb-20 items-center py-6 rounded-lg   "
+          }
         >
           <div>
             <p className={"text-white ml-4 font-bold text-center text-3xl"}>
@@ -36,7 +38,7 @@ export const Feature = () => {
         </div>
         <div
           className={
-            "grid relative grid-cols-3 gap-y-14 justify-items-center items-center"
+            "grid relative grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-14 justify-items-center items-center"
           }
         >
           {datas.length !== 0 ? (

@@ -2,6 +2,7 @@ import { Banner } from "../../Component/Banner/Banner.jsx";
 import { Feature } from "../../Component/Feature/Feature.jsx";
 import { Helmet } from "react-helmet";
 import { OurCoreValue } from "../../Component/Banner/OurCoreValue.jsx";
+import { WeWork } from "../../Component/Work/WeWork.jsx";
 
 export const Home = () => {
   return (
@@ -13,6 +14,7 @@ export const Home = () => {
       <Banner />
       <Feature />
       <OurCoreValue />
+      <WeWork />
     </>
   );
 };

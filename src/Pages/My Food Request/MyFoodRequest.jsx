@@ -9,20 +9,22 @@ import Swal from "sweetalert2";
 export const MyFoodRequest = () => {
   const { userDetails } = useContext(authContext);
   const [data, setData] = useState([]);
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:3000/donation/request/search?query=${userDetails.email}`,
-      )
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   const [exist, setExist] = useState({});
-  const handleDelete = (id) => {
+
+  axios
+    .get(
+      `http://localhost:3000/donation/request/search?query=${userDetails.email}`,
+    )
+    .then((res) => {
+      setData(res.data);
+    })
+    .catch((err) => console.log(err));
+
+  const handleDelete = async (id) => {
     console.log("this is id", id);
+    await axios
+      .get(`${import.meta.env.VITE_LOCAL_HOST}/food/reques/${id}`)
+      .then(async (res) => await setExist(res.data.food_status));
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -31,13 +33,9 @@ export const MyFoodRequest = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, Cancel it!",
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-        await axios
-          .get(`${import.meta.env.VITE_LOCAL_HOST}/food/reques/${id}`)
-          .then((res) => setExist(res.data));
-
-        if (exist.food_status === "Available") {
+        if (exist === "Available") {
           axios
             .delete(
               `${import.meta.env.VITE_LOCAL_HOST}/food/reques/delete/${id}`,
@@ -56,13 +54,14 @@ export const MyFoodRequest = () => {
         } else {
           Swal.fire({
             title: "You Can't Cancel",
+            html: "This Food Already Delivered",
             icon: "error",
           });
         }
       }
     });
   };
-  console.log(exist.food_status === "Delivered");
+  console.log(exist === "Available");
 
   const columns = [
     {

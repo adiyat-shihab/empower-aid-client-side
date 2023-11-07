@@ -70,18 +70,24 @@ export const AvailableFood = () => {
       <Helmet>
         <title>Empower Hive | Available Food</title>
       </Helmet>
-      <div className={"px-32 py-32"}>
+      <div className={"xl:px-32 xl:py-32"}>
         <div
           className={
-            "bg-[#3BCF93] px-14 mb-20 items-center py-6 rounded-lg flex justify-between "
+            "bg-[#3BCF93] xl:px-14 mb-20 items-center py-6 rounded-lg flex justify-between "
           }
         >
           <div>
-            <p className={"text-white ml-4 font-bold text-2xl"}>Search Food</p>
+            <p
+              className={"text-white hidden xl:flex ml-4 font-bold xl:text-2xl"}
+            >
+              Search Food
+            </p>
           </div>
           <div>
             <Checkbox onChange={onCheckChange}>
-              <span className={"text-white font-semibold text-base"}>
+              <span
+                className={"text-white  font-semibold text-xs xl:text-base"}
+              >
                 Sort By Expired Date
               </span>
             </Checkbox>
@@ -91,7 +97,7 @@ export const AvailableFood = () => {
             className="pt-2 relative   text-gray-600 "
           >
             <input
-              className=" outline-none w-[400px] placeholder:font-bold  placeholder:tracking-[2px] tracking-[2px]  font-semibold  py-3 bg-white px-5 pr-16 rounded-lg text-sm"
+              className=" outline-none xl:w-[400px] placeholder:font-bold  placeholder:tracking-[2px] tracking-[2px]  font-semibold  py-3 bg-white px-5 pr-16 rounded-lg text-sm"
               type="text"
               name="search"
               placeholder="Search"
@@ -121,7 +127,7 @@ export const AvailableFood = () => {
         </div>
         <div
           className={
-            "grid relative grid-cols-3 gap-y-14 justify-items-center items-center"
+            "grid relative  grid-cols-1 xl:grid-cols-3 gap-y-14 justify-items-center items-center"
           }
         >
           {datas.length !== 0 ? (

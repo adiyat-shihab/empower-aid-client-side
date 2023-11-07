@@ -132,7 +132,11 @@ export const AvailableSingleFood = () => {
   return (
     <>
       {" "}
-      <div className={"px-64 relative flex gap-6 py-32 items-center"}>
+      <div
+        className={
+          "xl:px-64 relative flex xl:flex-row  flex-col gap-6 py-32 items-center"
+        }
+      >
         <Helmet>
           <title>Empower Hive | Single Food</title>
         </Helmet>
@@ -140,7 +144,7 @@ export const AvailableSingleFood = () => {
           <img
             src={data?.data?.food_image}
             alt=""
-            className={"w-[24.625rem] h-[20.625rem]"}
+            className={"w-[24.625rem] h-[20.625rem] rounded-3xl"}
           />
         </div>
         <div>
@@ -149,7 +153,7 @@ export const AvailableSingleFood = () => {
             <img
               src="https://i.ibb.co/1v8P6r0/boxes-1.png"
               alt=""
-              className={"w-6 h-6"}
+              className={"w-6 h-6 "}
             />
             <p
               className={
@@ -178,15 +182,18 @@ export const AvailableSingleFood = () => {
               open={open}
               onCancel={handleCancel}
             >
-              <form onSubmit={handleSubmit} className={"space-y-2 z-10 "}>
-                <div className={"flex justify-between"}>
+              <form
+                onSubmit={handleSubmit}
+                className={"space-y-2 z-10 flex flex-col "}
+              >
+                <div className={"flex justify-between   xl:flex-row"}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
                       Food Name
                     </p>
                     <input
                       type="text"
-                      className=" px-2 text-gray-600 font-semibold tracking-wider pr-3 w-[14rem] py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 text-gray-600 font-semibold tracking-wider pr-3 w-[11rem] xl:w-[14rem] py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="foodname"
                       value={data?.data?.food_name}
@@ -199,7 +206,7 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider  rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 py-2 w-[11rem] xl:w-[14rem]   text-gray-600 font-semibold tracking-wider  rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder=""
                       name="foodimage"
                       readOnly
@@ -214,7 +221,7 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 w-[14rem]  text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 w-[11rem] xl:w-[14rem] text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="foodid"
                       readOnly
@@ -227,7 +234,7 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 py-2 w-[11rem] xl:w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="donatoremail"
                       value={data?.data?.donator?.email}
@@ -235,14 +242,14 @@ export const AvailableSingleFood = () => {
                     />{" "}
                   </div>
                 </div>{" "}
-                <div className={"flex justify-between"}>
+                <div className={"flex justify-between "}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
                       Food Donator Name
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 w-[14rem] py-2  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 w-[11rem] xl:w-[14rem] py-2  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="donatorname"
                       value={data?.data?.donator?.name}
@@ -255,7 +262,7 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 py-2 w-[11rem] xl:w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="useremail"
                       value={userDetails?.email}
@@ -263,14 +270,14 @@ export const AvailableSingleFood = () => {
                     />{" "}
                   </div>
                 </div>{" "}
-                <div className={"flex justify-between"}>
+                <div className={"flex justify-between "}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
                       Request Date
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 w-[11rem] xl:w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Request Date"
                       name="requestdate"
                       value={showTime}
@@ -283,7 +290,7 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 py-2 w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 py-2 w-[11rem] xl:w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       value={data?.data?.pickup_location}
                       readOnly
@@ -291,14 +298,14 @@ export const AvailableSingleFood = () => {
                     />{" "}
                   </div>
                 </div>{" "}
-                <div className={"flex justify-between"}>
+                <div className={"flex justify-between "}>
                   <div>
                     <p className={"font-semibold  text-gray-600 ml-1 mb-1"}>
                       Expire Date
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 w-[11rem] xl:w-[14rem]   text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Food Name"
                       name="expiredate"
                       value={data?.data?.expired_datetime}
@@ -311,21 +318,21 @@ export const AvailableSingleFood = () => {
                     </p>
                     <input
                       type="number"
-                      className=" px-2 pr-3 w-[14rem]    text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 w-[11rem] xl:w-[14rem]    text-gray-600 font-semibold tracking-wider py-2 rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="$Amount"
                       name="donationmoney"
                       required
                     />{" "}
                   </div>
                 </div>{" "}
-                <div className={"flex justify-between"}>
+                <div className={"flex justify-between "}>
                   <div>
                     <p className={"font-semibold text-gray-600 ml-1 mb-1"}>
                       Additional Notes
                     </p>
                     <input
                       type="text"
-                      className=" px-2 pr-3 py-7 w-[30rem]   text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
+                      className=" px-2 pr-3 py-7 w-[11rem] xl:w-[14rem]  text-gray-600 font-semibold tracking-wider rounded-lg border-2 border-gray-200 outline-none f"
                       placeholder="Notes"
                       name="notes"
                     />{" "}

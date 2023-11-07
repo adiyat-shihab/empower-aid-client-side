@@ -3,10 +3,15 @@ import { FooterLogo } from "./FooterLogo.jsx";
 export const Footer = () => {
   return (
     <>
-      <div className="bg-[#222222] ">
+      <div className="bg-[#222222] pt-20 ">
         <div className="max-w-screen-lg px-4 sm:px-6 text-gray-800 sm:grid md:grid-cols-4 sm:grid-cols-2 mx-auto">
-          <div className="p-5">
-            <h3 className="font-bold text-xl text-white">Company Name</h3>
+          <div className="p-5  flex flex-col  items-center">
+            <img
+              src="https://i.ibb.co/stj4qZN/White-Green-Simple-Illustrative-Food-Logo-3.png"
+              alt=""
+              className={"w-20 h-20"}
+            />
+            <h3 className="font-bold text-xl text-white">Empower AID</h3>
           </div>
           <div className="p-5">
             <div className="text-sm uppercase text-white font-bold">
