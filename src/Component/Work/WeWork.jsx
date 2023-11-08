@@ -10,7 +10,7 @@ export const WeWork = () => {
           <img
             src="https://i.postimg.cc/T15QkRcZ/Untitled-design-4.png"
             alt=""
-            className={"w-[856px] h-[607px]"}
+            className={"md:w-[856px] w-[36rem] h-[23rem] md:h-[607px]"}
           />
         </div>
         <div>

@@ -29,7 +29,7 @@ export const OurCoreValue = () => {
             className={"h-[20.65rem] w-[26.5rem]"}
           />
           <img
-            className={"w-[38.5rem] h-[20.65rem]"}
+            className={"w-[33.8rem] h-[20.65rem]"}
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNwbVK8ntG684gZkDyHl4qJVfgsuB527X2E4ixp5I6ERgsiQy0CwfOLOWyU8SC9y5P1Fs&usqp=CAU"
             alt=""
           />
