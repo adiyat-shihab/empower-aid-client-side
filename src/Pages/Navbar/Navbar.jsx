@@ -163,6 +163,34 @@ export const Navbar = () => {
                 {" "}
                 <NavLinkBar url={"/donation/myRequest"} data={"My Request"} />
               </li>
+              {userDetails ? (
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setOpen(false);
+                    SignOut;
+                  }}
+                  className="block bg-[#3BCF93] px-6 rounded-sm text-white  py-2 text-[1.125rem] p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
+                >
+                  <span className={" text-[1rem] font-bold  "}>Logout</span>
+                </motion.button>
+              ) : (
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <NavLink
+                    className="block bg-[#3BCF93] px-4 rounded-sm text-white  py-2 text-[1.125rem] p-1 font-sans text-sm font-normal leading-normal text-inherit antialiased"
+                    to={"/register"}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className={"text-[1.125rem] font-bold"}>
+                      Get Start
+                    </span>
+                  </NavLink>
+                </motion.div>
+              )}
             </ul>
           </motion.div>
         )}
