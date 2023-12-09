@@ -15,5 +15,5 @@
 
 * If user already request a donation then they can the donation if the food_status is available
 
-# client-side live link : https://donation-af25b.web.app/
+# client-side live link : https://empower-aid.netlify.app/
 
